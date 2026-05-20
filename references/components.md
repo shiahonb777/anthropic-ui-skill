@@ -1,6 +1,6 @@
 # Components
 
-Reference patterns for the most common UI elements. All examples assume `assets/tokens.css` is loaded so the CSS variables resolve. Markup is plain HTML/CSS — adapt to your framework as needed.
+Reference patterns for the most common UI elements. All examples assume the token variables from `references/tokens.md` are loaded as CSS custom properties on `:root` (the simplest way: copy the `:root` block from `docs/preview.html`). Markup is plain HTML/CSS — adapt to your framework as needed.
 
 ## Table of contents
 

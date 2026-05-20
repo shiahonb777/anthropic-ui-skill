@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <sub><i>Specimen No. 04 — every primitive in one frame. Open <code>docs/preview.html</code> for the full single-frame poster, or <code>assets/starter.html</code> for the scrollable reference page.</i></sub>
+  <sub><i>Specimen No. 04 — every primitive in one frame. Open <code>docs/preview.html</code> to see it live.</i></sub>
 </p>
 
 A drop-in skill, design-token pack, component library, and *posture guide* for building frontends in the visual language and product behavior Anthropic uses across [anthropic.com](https://www.anthropic.com), [Claude.ai](https://claude.ai), and Claude documentation. Warm cream backgrounds, a terra-cotta signature accent, geometric sans-serif headings paired with serif body text, generous whitespace, and quiet, editorial confidence — but also: copy that doesn't flatter, friction placed on purpose, names chosen with care, generated work given its own room, and honesty over reassurance.
@@ -22,22 +22,19 @@ references/
   observations.md           Field notes from anthropic.com — what's actually there
   aesthetics-prompt.md      How this skill relates to Anthropic's frontend-aesthetics cookbook
   intent.md                 Posture, voice, naming, friction — the heart of the skill
-  tokens.md                 Full token system with rationale
+  tokens.md                 Full token system with rationale (palette, type, spacing, motion)
   components.md             Button, input, card, nav, table, modal patterns
   motion.md                 Easing, page-load choreography, scroll reveal
   retrofit.md               Step-by-step restyling for existing projects
   anti-patterns.md          What to avoid — visual, layout, copy, naming, interaction
-assets/
-  tokens.css                Drop-in CSS custom properties + base styles
-  tokens.json               DTCG-format design tokens (Style Dictionary, etc.)
-  tailwind.preset.js        Tailwind preset (extends, doesn't replace)
-  starter.html              Self-contained reference page set as an essay
 docs/
-  preview.html              Single-frame design specimen (1600 × 1000)
+  preview.html              Single-frame design specimen (1600 × 1300, copy-paste-ready CSS)
   demo.png                  Rendered specimen, used by this README
 evals/
   evals.json                Test prompts for verifying skill behavior
 ```
+
+The skill is *documentation-first*. Token values, the type stack, and the Tailwind preset are all written into `references/tokens.md`. The single-frame specimen at `docs/preview.html` is the worked example — a copy-paste-ready HTML page with every token defined inline, every primitive rendered, and no external dependencies beyond Google Fonts.
 
 ## What this is, and what it isn't
 
@@ -53,32 +50,13 @@ Place this folder where your Claude environment loads skills (or invoke with the
 
 ### Use the tokens directly
 
-**Vanilla CSS / any framework**
+The full palette, type stack, spacing scale, and motion tokens are documented in [`references/tokens.md`](./references/tokens.md), with rationale alongside each value. To use them in a project, copy the `:root` block from the bottom of [`docs/preview.html`](./docs/preview.html) — every variable is defined inline there with no build step.
 
-```html
-<link rel="stylesheet" href="assets/tokens.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-```
-
-**Tailwind**
-
-```js
-// tailwind.config.js
-module.exports = {
-  presets: [require('./assets/tailwind.preset.js')],
-  content: [/* your paths */],
-};
-```
-
-**Design-token tooling (Style Dictionary, etc.)**
-
-Point your token build at `assets/tokens.json` — it follows the [Design Tokens Community Group](https://www.designtokens.org/) format.
+For Tailwind users, [`references/retrofit.md`](./references/retrofit.md) shows a minimal preset that extends (not replaces) the default theme. For Style Dictionary or other DTCG token tooling, the names and values in `references/tokens.md` translate directly.
 
 ### See it in action
 
-Open `assets/starter.html` in a browser. It's a self-contained page that demonstrates every primitive in the system — hero, features, quote, articles, components showcase, footer.
+Open `docs/preview.html` in a browser at 1600 px width. It renders every primitive in the system — masthead, hero with inline-link CTAs, statement paragraph, releases list, type & palette specimens, model cards, conversation-and-canvas mockup, pricing, footer — in a single non-scrolling frame.
 
 ## The ten things that matter
 

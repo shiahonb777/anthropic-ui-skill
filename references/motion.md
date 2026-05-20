@@ -159,7 +159,7 @@ Always pair the rise-in keyframes with a `prefers-reduced-motion` guard:
 }
 ```
 
-This snippet is included in `assets/tokens.css` by default.
+Apply this snippet alongside the rest of the token block. (It's already included in the `:root` of `docs/preview.html`.)
 
 ## Putting it together
 

@@ -61,7 +61,7 @@ Figure out which of these the user is asking for, then jump to the right workflo
 
 - **From zero** — they want a new page, component, or app styled this way. Read `references/intent.md` first, then go to "Workflow: building from scratch."
 - **Retrofit** — they have existing code and want it restyled. Skim `references/intent.md` for the copy/posture reframe, then read `references/retrofit.md`.
-- **Tokens only** — they want the palette, type scale, or design tokens. Hand them `assets/tokens.css`, `assets/tokens.json`, or `assets/tailwind.preset.js` and point at `references/tokens.md`.
+- **Tokens only** — they want the palette, type scale, or design tokens. Point them at `references/tokens.md` (full reference) and `docs/preview.html` (copy-paste-ready `:root` block).
 - **One component** — read `references/components.md`, lift the relevant pattern, adapt to their framework. Check the corresponding posture note in `references/intent.md` before shipping (e.g., for buttons: what does this button *say* it does?).
 
 If it's ambiguous, ask once: "Are we restyling visuals, or do you want me to also rework the copy and the interaction posture to match?" Then proceed.
@@ -161,9 +161,9 @@ When the user asks for a new page, component, or app:
 
 2. **Write the most important sentence first, in plain language.** The hero headline. The empty-state copy. The CTA. Get them honest before designing around them. If the sentence reads like a marketing brief, the layout will too. See `references/intent.md` for the voice register.
 
-3. **Drop in tokens.** Copy `assets/tokens.css` (or `assets/tailwind.preset.js`, or `assets/tokens.json`). Get the variables loaded before writing markup.
+3. **Drop in tokens.** Copy the `:root` block from `docs/preview.html` — every variable is defined inline there. For a Tailwind project, see the preset shown in `references/retrofit.md`.
 
-4. **Set up the font stack.** Add `<link>` tags for Poppins and Lora from Google Fonts as the no-license fallback. If the user has Styrene/Tiempos licenses, point them at the `@font-face` block in `assets/tokens.css`.
+4. **Set up the font stack.** Add `<link>` tags for Poppins and Lora from Google Fonts as the no-license fallback. If the user has Styrene/Tiempos licenses, add `@font-face` blocks pointing at their licensed files; the font-family stacks in `references/tokens.md` already prefer Styrene/Tiempos first.
 
 5. **Lay out with whitespace, not boxes.** Resist wrapping everything in cards. Most sections on anthropic.com are text on cream with generous padding. Cards appear when there's a real reason to group.
 
@@ -173,7 +173,7 @@ When the user asks for a new page, component, or app:
 
 8. **Write the microcopy with the same care as the layout.** Buttons. Empty states. Toasts. Errors. Loading messages. Disclaimers. Walk through every label once and check it against the table in `references/intent.md`.
 
-9. **Reference the starter.** `assets/starter.html` is a complete self-contained page set as an essay — title page, drop cap, footnotes, colophon, and a single quiet "Request access" CTA at the end. It is the *shape of correct* you're matching.
+9. **Reference the specimen.** `docs/preview.html` is a single-frame poster that renders every primitive in the system at once — every token defined inline, every component shown. It is the *shape of correct* you're matching.
 
 10. **Run the posture checklist** at the bottom of `references/intent.md` before declaring done.
 
@@ -191,7 +191,7 @@ The full procedure with examples is in `references/retrofit.md`. The short versi
 6. **Reduce accent surface area.** If their primary color paints whole hero sections, dial it back to button-and-link sized usage.
 7. **Add the off-white** (`#faf9f5`). One swap does most of the visual work.
 8. **Audit the interactions.** Confirmation dialogs that say "Are you sure?" — replace with the actual consequence. Engagement nudges, streaks, "🔥 New!" ribbons — remove.
-9. **Verify against `assets/starter.html`** side-by-side. The vibe should match.
+9. **Verify against `docs/preview.html`** side-by-side. The vibe should match.
 
 ## Avoid these defaults
 
@@ -226,16 +226,14 @@ references/
   observations.md           field notes from anthropic.com — what's actually there
   aesthetics-prompt.md      how this skill relates to Anthropic's general frontend-aesthetics cookbook
   intent.md                 posture, voice, naming, friction (read this first for non-trivial work)
-  tokens.md                 full token system + rationale
+  tokens.md                 full token system + rationale (palette, type, spacing, motion)
   components.md             button/input/card/nav/table/etc. patterns
   motion.md                 easing, page-load choreography, scroll reveal
   retrofit.md               step-by-step restyling of existing code
   anti-patterns.md          what to avoid and what to do instead
-assets/
-  tokens.css                drop-in CSS custom properties + base styles
-  tokens.json               design-tokens-spec format for tooling
-  tailwind.preset.js        Tailwind preset (extends, doesn't replace)
-  starter.html              self-contained reference page — open this when you're unsure
+docs/
+  preview.html              single-frame design specimen — every primitive in one HTML page
+  demo.png                  rendered specimen, used by README
 evals/
   evals.json                test prompts
 ```
@@ -266,4 +264,4 @@ Run before declaring "done." Top section is non-negotiable; bottom is the visual
 - [ ] Page-load motion is staggered, easing is soft, durations 300–600ms
 - [ ] No purple gradients, no Inter, no rounded-2xl shadow-xl
 
-If all check, you've nailed it. If something feels off, the gap is almost always in the posture section. Open `assets/starter.html`, read the copy, then read your copy. Adjust until they sound like they were written by the same person.
+If all check, you've nailed it. If something feels off, the gap is almost always in the posture section. Open `docs/preview.html`, read its copy, then read your copy. Adjust until they sound like they were written by the same person.

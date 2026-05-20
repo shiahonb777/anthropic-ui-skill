@@ -166,17 +166,62 @@ If headings have heavy weights (700+), drop to 600. If they have wide letter-spa
 
 ### Tailwind
 
-The cleanest approach: install `assets/tailwind.preset.js` as a preset.
+The cleanest approach: define a small preset that extends (not replaces) the default theme. Drop this into your project and reference it from `tailwind.config.js`.
+
+```js
+// anthropic-ui.preset.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        surface:        '#faf9f5',
+        'surface-sunken': '#f3f1ea',
+        'surface-raised': '#ffffff',
+        text: {
+          DEFAULT:    '#141413',
+          muted:      '#6b6a64',
+          faint:      '#b0aea5',
+          'on-accent': '#faf9f5',
+        },
+        border: {
+          DEFAULT: '#e8e6dc',
+          strong:  '#c9c5b8',
+        },
+        accent: {
+          DEFAULT: '#d97757',
+          hover:   '#c4613f',
+          soft:    '#f4dccf',
+          blue:        '#6a9bcc',
+          'blue-soft': '#dbe6f1',
+          green:        '#788c5d',
+          'green-soft': '#dde2d0',
+        },
+      },
+      fontFamily: {
+        heading: ['"Styrene A"', '"Poppins"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        body:    ['"Tiempos Text"', '"Lora"', 'Georgia', 'serif'],
+        mono:    ['"JetBrains Mono"', '"SF Mono"', 'Menlo', 'Consolas', 'monospace'],
+      },
+      borderRadius: {
+        sm: '4px', DEFAULT: '6px', md: '8px', lg: '12px', pill: '999px',
+      },
+      transitionTimingFunction: {
+        'out-soft': 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+    },
+  },
+};
+```
 
 ```js
 // tailwind.config.js
 module.exports = {
-  presets: [require('./assets/tailwind.preset.js')],
+  presets: [require('./anthropic-ui.preset.js')],
   // your own content paths and any extensions
 };
 ```
 
-This adds Anthropic tokens to Tailwind's theme without removing the defaults — use `bg-surface` alongside `bg-white` if you need both. After adding the preset, do a sweep replacing `bg-white` → `bg-surface`, etc.
+This preset extends the framework rather than replacing it, so `bg-surface` and `bg-white` both work. After adding the preset, do a sweep: `bg-white` → `bg-surface`, `text-gray-900` → `text-DEFAULT`, etc.
 
 ### shadcn/ui
 
@@ -244,4 +289,4 @@ After a retrofit pass:
 - Corners are mid-radius, not maximally rounded
 - The page feels calm and considered rather than busy and shipping-fast
 
-If you've done all seven moves and it still doesn't feel right, open `assets/starter.html` side-by-side and find the gap. Usually it's whitespace (sections too tight) or accent saturation (still too much terra cotta).
+If you've done all seven moves and it still doesn't feel right, open `docs/preview.html` side-by-side and find the gap. Usually it's whitespace (sections too tight) or accent saturation (still too much terra cotta).

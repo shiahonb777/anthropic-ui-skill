@@ -114,7 +114,7 @@ Same prompt: *Create a SaaS landing page for a project management tool*.
 - Stats with `-webkit-background-clip: text` gradients
 - Emoji icons in feature cards
 
-**Following this skill** would produce something like the `assets/starter.html` reference:
+**Following this skill** would produce something like the `docs/preview.html` specimen:
 - Solid cream background
 - Tiempos (body) + Styrene (heading)
 - 1px borders, no shadows, 6–8px radii
