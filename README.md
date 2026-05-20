@@ -19,6 +19,8 @@ The visual style is the easy half. The posture — how the product treats the pe
 ```
 SKILL.md                    Principles, quick-reference, and workflows
 references/
+  observations.md           Field notes from anthropic.com — what's actually there
+  aesthetics-prompt.md      How this skill relates to Anthropic's frontend-aesthetics cookbook
   intent.md                 Posture, voice, naming, friction — the heart of the skill
   tokens.md                 Full token system with rationale
   components.md             Button, input, card, nav, table, modal patterns
@@ -36,6 +38,12 @@ docs/
 evals/
   evals.json                Test prompts for verifying skill behavior
 ```
+
+## What this is, and what it isn't
+
+This skill is **one specific theme constraint** — the *Anthropic-editorial* register. It is not Anthropic's general advice for "good frontend." Anthropic publishes a separate [cookbook on prompting for frontend aesthetics](https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb) that advocates *variety* across projects with the only constant being the rejection of AI-slop defaults.
+
+Use this skill when you want the editorial register specifically (research products, writing tools, professional knowledge work, marketing for any of those). Use the cookbook's general prompt when you want variety, or when the project genuinely calls for atmospheric backgrounds and playful personality. Both are valid. See `references/aesthetics-prompt.md` for the longer comparison.
 
 ## Quick start
 

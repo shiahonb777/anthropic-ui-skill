@@ -11,6 +11,16 @@ Most of what follows is therefore not about color. It's about what the product b
 
 This is *inspired by* Anthropic's public design language and writing about it. It is not an official Anthropic product, does not use Anthropic logos or marks, and does not claim affiliation.
 
+## What this skill is, and what it isn't
+
+This skill is **one specific theme constraint** within Anthropic's broader frontend-aesthetics methodology — the *Anthropic-editorial* register: warm cream, terra-cotta accents, serif body, generous whitespace, calm motion, voice that doesn't flatter.
+
+It is **not** Anthropic's general advice for "good frontend." That's a separate document, [Anthropic's frontend-aesthetics cookbook](https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb), which deliberately advocates *variety* — different fonts, themes, and aesthetics across different projects, with the only constant being the rejection of "AI slop" defaults.
+
+This skill agrees with the cookbook's methodology (avoid converging defaults; address each design dimension explicitly; commit to an aesthetic) but takes a strong opinion on *which* aesthetic. The cookbook's example SaaS page chooses atmospheric gradients, pill CTAs, and a Syne/DM Sans display pairing; this skill chooses solid cream, inline-link CTAs, and Styrene/Tiempos. Both are legitimate. **Pick this skill when you want the editorial register specifically, the cookbook's general prompt when you want variety.**
+
+For a longer treatment of this distinction — including how to use parts of the skill in isolation — see `references/aesthetics-prompt.md`.
+
 ## What "looking like Claude" actually means
 
 Three layers, in priority order. If the lower layer isn't right, the upper layer can't save the result.
@@ -214,6 +224,7 @@ These are the failure modes that make a result feel "generated" instead of desig
 SKILL.md                    you are here — principles, quick reference, workflows
 references/
   observations.md           field notes from anthropic.com — what's actually there
+  aesthetics-prompt.md      how this skill relates to Anthropic's general frontend-aesthetics cookbook
   intent.md                 posture, voice, naming, friction (read this first for non-trivial work)
   tokens.md                 full token system + rationale
   components.md             button/input/card/nav/table/etc. patterns

@@ -163,3 +163,10 @@ When the skill makes a claim about how Anthropic does something, the claim shoul
 2. Be marked as a *derivation* — a stylistic move that fits the system but is the skill author's choice, not Anthropic's.
 
 Keeping these two categories separate is what prevents the skill from drifting into "I imagine Anthropic would do this" over time.
+
+## Sources
+
+- [anthropic.com](https://www.anthropic.com/) and the subpages cited in each entry above (homepage, /research, /news, news posts, product pages), sampled May 2026.
+- [Anthropic's frontend-aesthetics cookbook](https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb) — Anthropic's own published guidance on prompting Claude for frontend aesthetics. Useful as a source of *general* methodology (avoid AI-slop defaults; isolate dimensions; commit to a coherent aesthetic) rather than as a description of anthropic.com itself. Discussed in detail in `references/aesthetics-prompt.md`.
+- *Claude's Character* (Anthropic, 2024) and *Claude's Constitution* (Anthropic, 2025) — used in `references/intent.md` for the posture / voice register, particularly the *honesty over engagement* principle.
+- Joel Lewenstein interviews (Fast Company, *Prompted with Cam*, late 2025) — quoted in `references/intent.md` on friction-as-feature and the sparring-partner framing.
