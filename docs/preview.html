@@ -10,6 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
+    /* =========================================================
+       Single-frame design specimen.
+       Surface: 1600 × 1300 (no scroll, all content visible).
+       Open in a 1600+ px wide browser, then take a screenshot of
+       the cream surface. Or use Chrome DevTools' "Capture full
+       size screenshot" for pixel-perfect output.
+       ========================================================= */
     :root {
       --surface:        #faf9f5;
       --surface-sunken: #f3f1ea;
@@ -35,25 +42,41 @@
       --font-body:    "Tiempos Text", "Lora", Georgia, "Times New Roman", serif;
       --font-mono:    "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
     }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: #d9d6c7; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    body { min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: var(--font-body); }
 
-    .poster {
-      width: 1600px; height: 1000px;
-      background: var(--surface); color: var(--text);
-      padding: 56px 72px;
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: #d9d6c7;
+      min-height: 100vh;
       display: grid;
-      grid-template-rows: auto auto auto 1fr auto auto;
+      place-items: center;
+      padding: 24px;
+      font-family: var(--font-body);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Screenshottable surface — explicit row sizes prevent collapse */
+    .poster {
+      width: 1600px;
+      height: 1300px;
+      background: var(--surface);
+      padding: 48px 60px;
+      display: grid;
+      grid-template-rows: 56px 240px 360px 440px 24px;
       gap: 28px;
-      box-shadow: 0 10px 60px rgba(20,20,19,0.12), 0 1px 0 rgba(20,20,19,0.04);
+      box-shadow: 0 12px 60px rgba(20,20,19,0.14), 0 1px 0 rgba(20,20,19,0.04);
       overflow: hidden;
       position: relative;
     }
 
-    .label, .meta, .btn, .nav, .nav *, .footer-line, .footer-line *,
-    .release-meta, .release-meta *, .news-row .meta-l, .news-row .meta-l *,
-    .voice-counter, .palette .name, .palette .hex, .pricing *, .specimens * {
+    /* Sans + lining tabular numerals on chrome */
+    .nav, .nav *, .btn, .label, .meta,
+    .release-meta, .release-meta *,
+    .palette .name, .palette .hex,
+    .pricing *, .canvas *, .footer-line, .footer-line *,
+    .models * {
       font-variant-numeric: lining-nums tabular-nums;
     }
 
@@ -71,7 +94,7 @@
     }
 
     /* =========================================================
-       Nav
+       Row 1 — Nav (56px)
        ========================================================= */
     .nav {
       display: grid;
@@ -81,24 +104,57 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 600; font-size: 16px; letter-spacing: -0.005em; color: var(--text); }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: -0.005em;
+    }
     .brand svg { width: 22px; height: 22px; }
-    .nav-links { display: flex; gap: 24px; list-style: none; padding: 0; margin: 0 0 0 24px; justify-self: start; }
-    .nav-links a { font-family: var(--font-heading); font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; }
+    .nav-links {
+      display: flex; gap: 28px;
+      list-style: none; margin: 0 0 0 28px; padding: 0;
+      justify-self: start;
+    }
+    .nav-links a {
+      font-family: var(--font-heading);
+      font-size: 12.5px; font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
     .nav-links a[aria-current] { color: var(--text); }
-    .nav-actions { display: flex; gap: 8px; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 6px; border: 1px solid transparent; font-family: var(--font-heading); font-size: 12px; font-weight: 500; }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px; padding: 0 14px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-family: var(--font-heading);
+      font-size: 12.5px; font-weight: 500;
+    }
     .btn-primary { background: var(--accent); color: var(--text-on-accent); }
-    .btn-tertiary { background: transparent; color: var(--text-muted); padding: 0 8px; }
+    .btn-tertiary { background: transparent; color: var(--text-muted); padding: 0 10px; }
 
     /* =========================================================
-       Hero with embedded inline-link CTAs
+       Row 2 — Hero (240px)
        ========================================================= */
+    .hero {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .hero h1 {
-      font-size: 68px;
+      font-size: 64px;
       line-height: 1.04;
       letter-spacing: -0.025em;
-      max-width: 22ch;
+      max-width: 24ch;
+      font-weight: 600;
     }
     .hero h1 a {
       color: var(--accent);
@@ -109,14 +165,15 @@
     }
     .hero .lede {
       margin-top: 22px;
-      max-width: 38rem;
+      max-width: 60ch;
       font-size: 17px;
       line-height: 1.55;
       color: var(--text);
     }
 
     /* =========================================================
-       Three-column body — releases + statement + specimens
+       Row 3 — Triptych (360px)
+       releases · statement · type & palette
        ========================================================= */
     .triptych {
       display: grid;
@@ -126,48 +183,67 @@
       border-bottom: 1px solid var(--border);
       min-height: 0;
     }
-    .col { padding: 18px 24px 18px 0; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
-    .col + .col { padding-left: 24px; }
+    .col {
+      padding: 18px 28px 18px 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .col + .col { padding-left: 28px; }
     .col:last-child { border-right: none; padding-right: 0; }
 
     /* Releases column */
-    .col-releases .label { margin-bottom: 4px; }
+    .col-releases > .label { margin-bottom: 4px; }
     .release {
       padding: 10px 0;
       border-top: 1px solid var(--border);
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 80px 1fr;
       gap: 16px;
       align-items: baseline;
     }
     .release:first-of-type { border-top: none; padding-top: 0; }
     .release-meta {
       font-family: var(--font-heading);
-      font-size: 9px;
+      font-size: 9.5px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-muted);
-      width: 70px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
     .release-meta b { color: var(--accent); font-weight: 500; }
-    .release-body h3 { font-family: var(--font-heading); font-size: 14px; font-weight: 500; line-height: 1.25; letter-spacing: -0.005em; margin-bottom: 3px; }
-    .release-body p { font-size: 11.5px; line-height: 1.45; color: var(--text-muted); }
+    .release-body h3 {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      margin-bottom: 4px;
+    }
+    .release-body p {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
 
     /* Statement column */
     .col-statement {
       align-items: flex-start;
       justify-content: center;
-      padding-left: 24px;
-      padding-right: 24px;
-      gap: 16px;
+      padding-left: 28px;
+      padding-right: 28px;
+      gap: 18px;
     }
     .statement {
       font-family: var(--font-body);
       font-size: 22px;
       line-height: 1.35;
       letter-spacing: -0.005em;
-      color: var(--text);
+      max-width: 28ch;
     }
     .statement em { font-style: italic; color: var(--accent); }
     .col-statement .small {
@@ -184,159 +260,228 @@
       text-decoration-color: var(--accent-soft);
     }
 
-    /* Specimens column */
-    .col-specs .label { margin-bottom: 4px; }
-    .spec-block {
+    /* Type & palette column — only 3 specimens to keep it short */
+    .col-specs > .label { margin-bottom: 4px; }
+    .spec {
       padding-top: 10px;
       border-top: 1px solid var(--border);
     }
-    .spec-block:first-of-type { border-top: none; padding-top: 0; }
-    .spec-block .what {
+    .spec:first-of-type { border-top: none; padding-top: 0; }
+    .spec .what {
       font-family: var(--font-heading);
-      font-size: 9px;
+      font-size: 9.5px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-faint);
       margin-bottom: 6px;
     }
-    .palette { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .type-display {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: -0.018em;
+      font-weight: 600;
+    }
+    .type-display em { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
+    .type-body {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      line-height: 1.55;
+      max-width: 36ch;
+      color: var(--text);
+    }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px 14px;
+    }
     .swatch { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; }
     .chip { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--border); }
-    .palette .name { font-family: var(--font-heading); font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
-    .palette .hex { font-family: var(--font-mono); font-size: 10px; color: var(--text); }
-
-    .type-row {
-      display: grid; grid-template-columns: 60px 1fr; gap: 10px; align-items: baseline;
-      margin-bottom: 4px;
+    .palette .name {
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
-    .type-row .what-l { font-family: var(--font-heading); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
-    .type-display { font-family: var(--font-heading); font-size: 22px; line-height: 1.05; letter-spacing: -0.018em; font-weight: 600; }
-    .type-display em { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
-    .type-italic { font-family: var(--font-body); font-style: italic; font-size: 14px; line-height: 1.2; }
-    .type-body { font-family: var(--font-body); font-size: 12px; line-height: 1.55; max-width: 36ch; }
-    .type-mono { font-family: var(--font-mono); font-size: 11px; }
-    .type-meta { font-family: var(--font-heading); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+    .palette .hex {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text);
+    }
 
     /* =========================================================
-       Bottom band — models · canvas · pricing
+       Row 4 — Bottom band (440px)
+       models · canvas · pricing
        ========================================================= */
     .bottom {
       display: grid;
-      grid-template-columns: 1fr 1.4fr 1fr;
+      grid-template-columns: 1fr 1.5fr 1fr;
       gap: 0;
-      border-bottom: 1px solid var(--border);
+      min-height: 0;
     }
-    .bottom > * { border-right: 1px solid var(--border); padding: 18px 22px; }
-    .bottom > *:last-child { border-right: none; }
+    .bottom > * {
+      border-right: 1px solid var(--border);
+      padding: 22px 28px 0 0;
+      min-height: 0;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .bottom > * + * { padding-left: 28px; }
+    .bottom > *:last-child { border-right: none; padding-right: 0; }
 
-    /* Models micro-cards */
-    .models { display: flex; flex-direction: column; gap: 12px; }
-    .models > .label { margin-bottom: 4px; }
+    /* Models column */
+    .models {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .models > .label { margin-bottom: 2px; }
     .model-line {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items: baseline;
-      padding-top: 10px;
+      padding-top: 12px;
       border-top: 1px solid var(--border);
     }
     .model-line:first-of-type { border-top: none; padding-top: 0; }
-    .model-name { font-family: var(--font-body); font-size: 22px; line-height: 1.05; letter-spacing: -0.015em; font-style: italic; }
-    .model-form {
-      font-family: var(--font-heading); font-size: 9px;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--accent); margin-top: 2px;
+    .model-name {
+      font-family: var(--font-body);
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      font-style: italic;
+      font-weight: 400;
     }
-    .model-line:nth-of-type(2) .model-form { color: var(--accent-blue); }
-    .model-line:nth-of-type(3) .model-form { color: var(--accent-green); }
+    .model-form {
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 3px;
+    }
+    .model-line:nth-of-type(3) .model-form { color: var(--accent-blue); }
+    .model-line:nth-of-type(4) .model-form { color: var(--accent-green); }
     .model-line .price {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
-      text-align: right; line-height: 1.45;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: right;
+      line-height: 1.5;
     }
     .model-line .price b { color: var(--text); font-weight: 500; }
 
-    /* Canvas mini */
+    /* Canvas mockup column */
+    .canvas-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .canvas-wrap > .label { margin-bottom: 2px; }
     .canvas {
+      flex: 1;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--surface-sunken);
       overflow: hidden;
       display: grid;
       grid-template-rows: auto 1fr;
-      height: 100%;
+      min-height: 0;
     }
     .canvas-bar {
       display: flex; align-items: center; gap: 10px;
-      padding: 6px 12px;
+      padding: 8px 12px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      font-family: var(--font-heading); font-size: 10px;
-      letter-spacing: 0.04em; color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
     }
     .canvas-bar .dots { display: inline-flex; gap: 5px; }
-    .canvas-bar .dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--border-strong); }
+    .canvas-bar .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
     .canvas-bar .file { flex: 1; text-align: center; }
     .canvas-bar .file b { color: var(--text); font-weight: 500; }
     .canvas-bar .model {
       display: inline-flex; align-items: center; gap: 6px;
-      letter-spacing: 0.12em; text-transform: uppercase; font-size: 9.5px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 9.5px;
     }
-    .canvas-bar .model::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); }
+    .canvas-bar .model::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-green);
+    }
 
     .canvas-body {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       min-height: 0;
-    }
-    .conv {
-      padding: 12px;
-      border-right: 1px solid var(--border);
-      background: var(--surface);
-      display: flex; flex-direction: column; gap: 10px;
       overflow: hidden;
     }
-    .turn { display: grid; grid-template-columns: 20px 1fr; gap: 8px; }
+    .conv {
+      padding: 14px;
+      border-right: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .turn { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
     .turn .mark {
-      width: 18px; height: 18px; border-radius: 50%;
+      width: 20px; height: 20px;
+      border-radius: 50%;
       display: grid; place-items: center;
-      font-family: var(--font-heading); font-size: 8px; font-weight: 600; letter-spacing: 0.04em;
+      font-family: var(--font-heading);
+      font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
     }
     .turn-user .mark { background: var(--text); color: var(--surface); }
     .turn-claude .mark { background: var(--accent); color: var(--text-on-accent); }
-    .turn .body { font-size: 11px; line-height: 1.45; color: var(--text); }
+    .turn .body { font-size: 12px; line-height: 1.45; color: var(--text); }
     .turn-user .body { color: var(--text-muted); }
     .tool {
       grid-column: 2 / 3;
       margin-top: 4px;
-      padding: 6px 8px;
+      padding: 6px 10px;
       border-left: 2px solid var(--accent-blue);
       background: var(--accent-blue-soft);
       border-radius: 0 4px 4px 0;
-      font-family: var(--font-mono); font-size: 10px; color: #3a6088; line-height: 1.4;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #3a6088;
+      line-height: 1.4;
     }
     .tool b {
       display: block; margin-bottom: 2px;
-      font-family: var(--font-heading); letter-spacing: 0.12em; text-transform: uppercase;
-      font-size: 8.5px; font-weight: 500; color: var(--accent-blue);
+      font-family: var(--font-heading);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 9px; font-weight: 500; color: var(--accent-blue);
     }
 
     .doc {
       padding: 14px 16px;
       background: var(--surface);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .doc h3 {
       font-family: var(--font-body);
-      font-size: 16px; line-height: 1.2; font-weight: 500;
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 500;
       letter-spacing: -0.005em;
       margin-bottom: 4px;
     }
     .doc .byline {
       font-family: var(--font-heading);
-      font-size: 9px;
+      font-size: 9.5px;
       letter-spacing: 0.04em;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .doc p {
       font-family: var(--font-body);
@@ -346,16 +491,26 @@
       margin-bottom: 6px;
     }
     .doc-foot {
-      margin-top: 8px; padding-top: 6px;
+      margin-top: auto;
+      padding-top: 6px;
       border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between;
-      font-family: var(--font-heading); font-size: 8.5px;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
     .doc-foot b { color: var(--text); font-weight: 500; }
 
     /* Pricing column */
-    .pricing { display: flex; flex-direction: column; gap: 14px; }
+    .pricing {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
     .pricing > .label { margin-bottom: 2px; }
     .plan {
       padding-top: 10px;
@@ -363,33 +518,52 @@
     }
     .plan:first-of-type { border-top: none; padding-top: 0; }
     .plan .name {
-      font-family: var(--font-heading); font-size: 9px;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
-      margin-bottom: 2px;
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
     }
     .plan .num {
-      font-family: var(--font-body); font-size: 22px;
-      letter-spacing: -0.015em; line-height: 1; color: var(--text);
+      font-family: var(--font-body);
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -0.015em;
     }
     .plan .num small {
-      font-family: var(--font-heading); font-size: 9px;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--text-muted); margin-left: 4px; vertical-align: 4px;
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-left: 4px;
+      vertical-align: 5px;
     }
     .plan .desc {
-      font-family: var(--font-body); font-size: 11.5px;
-      line-height: 1.45; color: var(--text-muted); margin-top: 4px;
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-top: 6px;
       max-width: 28ch;
     }
 
     /* =========================================================
-       Footer
+       Row 5 — Footer line (24px)
        ========================================================= */
     .footer-line {
-      display: flex; justify-content: space-between; flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
-      font-family: var(--font-heading); font-size: 9.5px;
-      letter-spacing: 0.16em; text-transform: uppercase;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       color: var(--text-faint);
     }
     .footer-line b { color: var(--text); font-weight: 500; }
@@ -400,7 +574,7 @@
 
 <main class="poster" aria-label="Anthropic-style design specimen">
 
-  <!-- ============ Nav ============ -->
+  <!-- ============ Row 1 — Nav ============ -->
   <nav class="nav">
     <div class="brand">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -422,41 +596,42 @@
     </div>
   </nav>
 
-  <!-- ============ Hero ============ -->
+  <!-- ============ Row 2 — Hero ============ -->
   <section class="hero">
     <h1>
       Quiet tools for <a>considered work</a> &mdash; and the <a>research</a> behind them.
     </h1>
     <p class="lede">
-      Atelier is a small studio building thoughtful workspaces. We borrow more from the print room than the
-      product showroom &mdash; and ask less of the people we serve.
+      Atelier is a small studio building thoughtful workspaces. We borrow more from the print room
+      than the product showroom &mdash; and ask less of the people we serve.
     </p>
   </section>
 
-  <!-- ============ Triptych: releases · statement · type/palette ============ -->
+
+  <!-- ============ Row 3 — Triptych ============ -->
   <section class="triptych">
 
     <div class="col col-releases">
       <span class="label">Latest releases</span>
       <article class="release">
-        <div class="release-meta">Apr 16, 2026<br><b>Announcement</b></div>
+        <div class="release-meta">Apr 16<br>2026<br><b>Announcement</b></div>
         <div class="release-body">
           <h3>Sonnet 4.7</h3>
-          <p>A meaningful upgrade across long-form drafting, citation handling, and multi-document research.</p>
+          <p>A meaningful upgrade across long-form drafting, citation handling, and research.</p>
         </div>
       </article>
       <article class="release">
-        <div class="release-meta">Feb 4, 2026<br><b>Announcement</b></div>
+        <div class="release-meta">Feb 4<br>2026<br><b>Announcement</b></div>
         <div class="release-body">
           <h3>Atelier is a space to think</h3>
           <p>No ads. No sponsored content. No engagement layer. We explain why.</p>
         </div>
       </article>
       <article class="release">
-        <div class="release-meta">Jan 30, 2026<br><b>Field note</b></div>
+        <div class="release-meta">Jan 30<br>2026<br><b>Field note</b></div>
         <div class="release-body">
           <h3>A week of writing inside Sonnet</h3>
-          <p>Drafting a long essay, edit by edit, with raw timings and friction points.</p>
+          <p>Drafting a long essay, edit by edit, with raw timings.</p>
         </div>
       </article>
     </div>
@@ -472,23 +647,15 @@
 
     <div class="col col-specs">
       <span class="label">Type &amp; palette</span>
-      <div class="spec-block">
-        <div class="what">Display / heading</div>
+      <div class="spec">
+        <div class="what">Display heading</div>
         <div class="type-display">Quiet <em>tools</em></div>
       </div>
-      <div class="spec-block">
-        <div class="what">Italic emphasis</div>
-        <div class="type-italic">Restraint, on purpose.</div>
-      </div>
-      <div class="spec-block">
+      <div class="spec">
         <div class="what">Body</div>
         <p class="type-body">A serif body is the most distinctive choice a software product can make in 2026.</p>
       </div>
-      <div class="spec-block">
-        <div class="what">Numerals</div>
-        <p class="type-mono">Old-style 1234 &middot; Lining tabular 1234</p>
-      </div>
-      <div class="spec-block">
+      <div class="spec">
         <div class="what">Palette</div>
         <div class="palette">
           <div class="swatch"><div class="chip" style="background:#faf9f5;"></div><div><div class="name">Surface</div><div class="hex">#faf9f5</div></div></div>
@@ -503,7 +670,7 @@
 
   </section>
 
-  <!-- ============ Bottom band: models · canvas · pricing ============ -->
+  <!-- ============ Row 4 — Bottom band ============ -->
   <section class="bottom">
 
     <div class="models">
@@ -531,39 +698,42 @@
       </div>
     </div>
 
-    <div class="canvas" aria-label="A product mockup of conversation alongside generated document">
-      <div class="canvas-bar">
-        <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span class="file">Sonnet &middot; <b>note-on-craft.md</b></span>
-        <span class="model">Sonnet 4.7</span>
-      </div>
-      <div class="canvas-body">
-        <div class="conv">
-          <div class="turn turn-user">
-            <div class="mark">You</div>
-            <div class="body">Take the rough notes from this morning and turn them into something I'd be willing to publish. Keep my voice.</div>
-          </div>
-          <div class="turn turn-claude">
-            <div class="mark">A</div>
-            <div class="body">Reading the notes. Two threads &mdash; typography and friction. They want to be one essay.</div>
-            <div class="tool">
-              <b>Plan</b>
-              Draft an opening on friction · pull two sentences from your March outline. Continue?
+    <div class="canvas-wrap">
+      <span class="label">Conversation &amp; canvas</span>
+      <div class="canvas" aria-label="Conversation alongside generated document">
+        <div class="canvas-bar">
+          <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="file">Sonnet &middot; <b>note-on-craft.md</b></span>
+          <span class="model">Sonnet 4.7</span>
+        </div>
+        <div class="canvas-body">
+          <div class="conv">
+            <div class="turn turn-user">
+              <div class="mark">You</div>
+              <div class="body">Take this morning's rough notes and turn them into something I'd be willing to publish. Keep my voice.</div>
+            </div>
+            <div class="turn turn-claude">
+              <div class="mark">A</div>
+              <div class="body">Reading them now. Two threads &mdash; typography and friction. They want to be one essay.</div>
+              <div class="tool">
+                <b>Plan</b>
+                Lead with friction. Pull two sentences from your March outline. Continue?
+              </div>
+            </div>
+            <div class="turn turn-user">
+              <div class="mark">You</div>
+              <div class="body">Yes &mdash; cut the colophon though.</div>
             </div>
           </div>
-          <div class="turn turn-user">
-            <div class="mark">You</div>
-            <div class="body">Yes &mdash; cut the colophon though. We have one already.</div>
-          </div>
-        </div>
-        <div class="doc">
-          <h3>A note on craft.</h3>
-          <div class="byline">Atelier &middot; By Sasha Rivers</div>
-          <p>Software has a habit of asking for attention it has not earned. It blinks, pulses, slides in from the corner, suggests, nudges, congratulates.</p>
-          <p>We started Atelier because we wanted to spend our days inside something quieter. The question we ask of every surface is the same the printer asks of a page.</p>
-          <div class="doc-foot">
-            <span>Drafted from <b>March outline</b></span>
-            <span>Open in Sonnet &rarr;</span>
+          <div class="doc">
+            <h3>A note on craft.</h3>
+            <div class="byline">By Sasha Rivers</div>
+            <p>Software has a habit of asking for attention it has not earned. It blinks, pulses, slides in from the corner, suggests, nudges, congratulates.</p>
+            <p>We started Atelier because we wanted to spend our days inside something quieter. The question we ask of every surface is the same the printer asks of a page.</p>
+            <div class="doc-foot">
+              <span>Drafted from <b>March outline</b></span>
+              <span>Open in Sonnet &rarr;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -586,16 +756,11 @@
         <div class="num">$100<small>/mo</small></div>
         <p class="desc">Prolific authors and small studios.</p>
       </div>
-      <div class="plan">
-        <div class="name">Team</div>
-        <div class="num">$30<small>/seat/mo</small></div>
-        <p class="desc">Editorial teams of three or more.</p>
-      </div>
     </div>
 
   </section>
 
-  <!-- ============ Footer line ============ -->
+  <!-- ============ Row 5 — Footer line ============ -->
   <footer class="footer-line">
     <span>&copy; 2026 Atelier Studio &middot; Portland &middot; Brooklyn</span>
     <span class="center">Set in <b>Tiempos Text</b> &amp; <b>Styrene A</b></span>
