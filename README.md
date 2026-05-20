@@ -1,5 +1,13 @@
 # anthropic-ui-skill
 
+<p align="center">
+  <img src="docs/demo.png" alt="A specimen sheet of the design language — masthead, hero, palette, type, components, products named after poetic forms, and a conversation-canvas mockup." width="100%">
+</p>
+
+<p align="center">
+  <sub><i>Specimen No. 04 — every primitive in one frame. Open <code>docs/preview.html</code> for the full single-frame poster, or <code>assets/starter.html</code> for the scrollable reference page.</i></sub>
+</p>
+
 A drop-in skill, design-token pack, component library, and *posture guide* for building frontends in the visual language and product behavior Anthropic uses across [anthropic.com](https://www.anthropic.com), [Claude.ai](https://claude.ai), and Claude documentation. Warm cream backgrounds, a terra-cotta signature accent, geometric sans-serif headings paired with serif body text, generous whitespace, and quiet, editorial confidence — but also: copy that doesn't flatter, friction placed on purpose, names chosen with care, generated work given its own room, and honesty over reassurance.
 
 The visual style is the easy half. The posture — how the product treats the people using it — is what makes the result actually *feel* like Anthropic.
@@ -22,6 +30,9 @@ assets/
   tokens.json               DTCG-format design tokens (Style Dictionary, etc.)
   tailwind.preset.js        Tailwind preset (extends, doesn't replace)
   starter.html              Self-contained reference page set as an essay
+docs/
+  preview.html              Single-frame design specimen (1600 × 1000)
+  demo.png                  Rendered specimen, used by this README
 evals/
   evals.json                Test prompts for verifying skill behavior
 ```

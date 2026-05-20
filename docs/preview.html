@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1600">
+  <title>Atelier — Design Specimen No. 04</title>
+
+  <!--
+    A single-frame design specimen.
+    Open in a browser, then take a window screenshot.
+    Designed for 1600 × 1000 viewport (16:10).
+    The .poster element is the screenshottable surface.
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --surface:        #faf9f5;
+      --surface-sunken: #f3f1ea;
+      --surface-deeper: #ece9dd;
+      --surface-raised: #ffffff;
+
+      --text:           #141413;
+      --text-muted:     #6b6a64;
+      --text-faint:     #b0aea5;
+      --text-on-accent: #faf9f5;
+
+      --border:         #e8e6dc;
+      --border-strong:  #c9c5b8;
+
+      --accent:            #d97757;
+      --accent-hover:      #c4613f;
+      --accent-soft:       #f4dccf;
+      --accent-blue:       #6a9bcc;
+      --accent-blue-soft:  #dbe6f1;
+      --accent-green:      #788c5d;
+      --accent-green-soft: #dde2d0;
+
+      --font-heading: "Styrene A", "Poppins", "Helvetica Neue", Arial, sans-serif;
+      --font-body:    "Tiempos Text", "Lora", Georgia, "Times New Roman", serif;
+      --font-mono:    "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      background: #d9d6c7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: var(--font-body);
+      font-feature-settings: "kern" 1, "liga" 1;
+    }
+
+    /* The screenshottable surface */
+    .poster {
+      width: 1600px;
+      height: 1000px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 56px 72px 48px;
+      display: grid;
+      grid-template-rows: auto 1fr auto auto auto;
+      gap: 28px;
+      box-shadow: 0 10px 60px rgba(20,20,19,0.12), 0 1px 0 rgba(20,20,19,0.04);
+      font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+      font-variant-numeric: oldstyle-nums proportional-nums;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Chrome (sans + lining tabular numerals) */
+    .label, .meta, .btn, .tag, .product-meta dt, .product-meta dd,
+    .palette .name, .palette .hex, .colophon-foot, .nav, .nav *,
+    .canvas *, .product-card .form, .product-card .meta-row * {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-heading); margin: 0; font-weight: 600; color: var(--text); }
+    p { margin: 0; line-height: 1.55; }
+
+    .label {
+      font-family: var(--font-heading);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-block;
+    }
+
+    /* =========================================================
+       Row 1 — Masthead
+       ========================================================= */
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--text);
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .masthead .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      color: var(--text); font-weight: 600;
+      letter-spacing: -0.005em; text-transform: none;
+      font-size: 16px;
+    }
+    .masthead .brand svg { width: 22px; height: 22px; }
+    .masthead .center { text-align: center; color: var(--text); font-weight: 600; }
+    .masthead .right { text-align: right; }
+
+    /* =========================================================
+       Row 2 — Hero band
+       ========================================================= */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 60px;
+      align-items: stretch;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-issue {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .hero-issue::before {
+      content: ""; width: 36px; height: 1px; background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: 84px;
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-weight: 600;
+      max-width: 12ch;
+    }
+    .hero h1 em {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .hero .rule {
+      width: 64px; height: 2px; background: var(--text);
+      margin: 22px 0 18px;
+    }
+    .hero .lede {
+      max-width: 38ch;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; align-items: center;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 38px; padding: 0 18px;
+      border-radius: 6px; border: 1px solid transparent;
+      font-family: var(--font-heading);
+      font-size: 13.5px; font-weight: 500;
+      cursor: default;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--accent); color: var(--text-on-accent); }
+    .btn-secondary { background: transparent; color: var(--text); border-color: var(--border-strong); }
+    .btn-tertiary { background: transparent; color: var(--text-muted); padding: 0 12px; }
+    .btn-sm { height: 30px; padding: 0 12px; font-size: 11.5px; }
+    .arrow { display: inline-block; }
+
+    /* Hero plate — one composition, three accents */
+    .hero-art {
+      border-left: 1px solid var(--border);
+      padding-left: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-art svg { width: 100%; max-height: 320px; }
+    .hero-art .caption {
+      position: absolute;
+      bottom: 0; left: 36px; right: 0;
+      font-family: var(--font-heading);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; gap: 12px;
+    }
+    .hero-art .caption span:first-child { color: var(--accent); }
+
+    /* =========================================================
+       Row 3 — Specimens band: palette · type · components
+       ========================================================= */
+    .specimens {
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr 1.6fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pane {
+      padding: 18px 28px 22px 0;
+      border-right: 1px solid var(--border);
+    }
+    .pane + .pane { padding-left: 28px; }
+    .pane:last-child { border-right: none; padding-right: 0; }
+    .pane > .label { display: block; margin-bottom: 14px; }
+
+    /* Palette */
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .palette .swatch {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .palette .chip {
+      width: 30px; height: 30px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .palette .name {
+      font-family: var(--font-heading);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .palette .hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text);
+    }
+
+    /* Type specimen */
+    .type-row { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+    .type-row .what {
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .type-h1     { font-family: var(--font-heading); font-size: 26px; line-height: 1.05; letter-spacing: -0.018em; font-weight: 600; }
+    .type-h1 em  { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
+    .type-h3     { font-family: var(--font-body); font-size: 18px; font-style: italic; line-height: 1.2; }
+    .type-body   { font-family: var(--font-body); font-size: 13px; line-height: 1.55; color: var(--text); max-width: 40ch; }
+    .type-meta   { font-family: var(--font-heading); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+    .type-mono   { font-family: var(--font-mono); font-size: 11.5px; }
+
+    /* Components stack */
+    .stack { display: flex; flex-direction: column; gap: 12px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    .tag {
+      display: inline-flex; align-items: center;
+      height: 20px; padding: 0 8px;
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.02em;
+      background: var(--surface-sunken); color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .tag-info    { background: var(--accent-blue-soft);  color: #3a6088; border-color: transparent; }
+    .tag-success { background: var(--accent-green-soft); color: #4a5a37; border-color: transparent; }
+    .tag-warn    { background: var(--accent-soft);       color: #8a4221; border-color: transparent; }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-blue);
+      background: var(--accent-blue-soft);
+      color: var(--text);
+      font-size: 12.5px; line-height: 1.5;
+      max-width: 360px;
+    }
+    .callout strong { font-weight: 600; }
+
+    .field {
+      max-width: 280px;
+      display: grid; gap: 6px;
+    }
+    .field-label { font-family: var(--font-heading); font-size: 11px; font-weight: 500; color: var(--text); letter-spacing: 0.02em; }
+    .input {
+      height: 32px;
+      padding: 0 10px;
+      font-family: var(--font-body); font-size: 13px; color: var(--text);
+      background: var(--surface-raised);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.15);
+    }
+    .input::placeholder { color: var(--text-faint); font-style: italic; }
+
+    /* =========================================================
+       Row 4 — Products + Canvas (the centerpiece)
+       ========================================================= */
+    .mid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 36px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-raised);
+    }
+    .product-card {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+    .product-card:last-child { border-bottom: none; }
+
+    .product-mark {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: grid; place-items: center;
+      color: var(--accent);
+      background: var(--surface);
+    }
+    .product-card:nth-child(2) .product-mark { color: var(--accent-blue); }
+    .product-card:nth-child(3) .product-mark { color: var(--accent-green); }
+    .product-mark svg { width: 22px; height: 22px; }
+
+    .product-card .name {
+      font-family: var(--font-body);
+      font-size: 22px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .product-card .form {
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .product-card:nth-child(2) .form { color: var(--accent-blue); }
+    .product-card:nth-child(3) .form { color: var(--accent-green); }
+
+    .product-card .desc {
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 30ch;
+    }
+    .product-card .meta-row {
+      text-align: right;
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      line-height: 1.5;
+    }
+    .product-card .meta-row b { color: var(--text); font-weight: 500; }
+
+    /* Canvas demo — conversation + document side-by-side */
+    .canvas {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: var(--surface-sunken);
+    }
+    .canvas-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .canvas-bar .dots { display: inline-flex; gap: 5px; }
+    .canvas-bar .dots span {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
+    }
+    .canvas-bar .file { flex: 1; text-align: center; }
+    .canvas-bar .file b { color: var(--text); font-weight: 500; }
+    .canvas-bar .model {
+      display: inline-flex; align-items: center; gap: 6px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 9.5px;
+    }
+    .canvas-bar .model::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    .canvas-body {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      min-height: 0;
+    }
+    .conv {
+      padding: 14px;
+      border-right: 1px solid var(--border);
+      background: var(--surface);
+      display: flex; flex-direction: column; gap: 12px;
+      overflow: hidden;
+    }
+    .turn { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+    .turn .mark {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-size: 9px; letter-spacing: 0.04em; font-weight: 600;
+    }
+    .turn-user .mark { background: var(--text); color: var(--surface); }
+    .turn-claude .mark { background: var(--accent); color: var(--text-on-accent); }
+    .turn .body {
+      font-size: 12px; line-height: 1.5;
+      color: var(--text);
+    }
+    .turn-user .body { color: var(--text-muted); }
+    .turn .meta {
+      font-family: var(--font-heading);
+      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+    .tool {
+      grid-column: 2 / 3;
+      margin-top: 4px;
+      padding: 8px 10px;
+      border-left: 2px solid var(--accent-blue);
+      background: var(--accent-blue-soft);
+      border-radius: 0 4px 4px 0;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #3a6088;
+      line-height: 1.45;
+    }
+    .tool b {
+      display: block;
+      margin-bottom: 2px;
+      font-family: var(--font-heading);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+
+    .conv-input {
+      margin-top: auto;
+      display: flex; align-items: center; gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .conv-input .ph {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-style: italic;
+      color: var(--text-faint);
+    }
+    .conv-input .send {
+      width: 22px; height: 22px;
+      border-radius: 4px;
+      background: var(--accent);
+      color: var(--text-on-accent);
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-size: 11px;
+    }
+
+    .doc {
+      padding: 18px 22px 14px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .doc-meta {
+      display: flex; gap: 8px;
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .doc-meta span:first-child { color: var(--accent); }
+    .doc h3 {
+      font-family: var(--font-body);
+      font-size: 18px; line-height: 1.2; font-weight: 500;
+      letter-spacing: -0.005em;
+      margin-bottom: 4px;
+    }
+    .doc .byline {
+      font-family: var(--font-heading);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .doc p {
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .doc p:first-of-type::first-letter {
+      font-family: var(--font-body);
+      float: left;
+      font-size: 38px;
+      line-height: 0.85;
+      padding-right: 4px;
+      padding-top: 2px;
+      color: var(--text);
+    }
+    .doc-foot {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .doc-foot b { color: var(--text); font-weight: 500; }
+
+    /* =========================================================
+       Row 5 — Voice (3 quotes) + Colophon stripe
+       ========================================================= */
+    .voices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .voice {
+      padding-right: 24px;
+      border-right: 1px solid var(--border);
+    }
+    .voice:last-child { border-right: none; padding-right: 0; }
+    .voice blockquote {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.45;
+      letter-spacing: -0.005em;
+      color: var(--text);
+    }
+    .voice:nth-child(2) blockquote { font-style: italic; }
+    .voice blockquote::before { content: "“"; color: var(--accent); }
+    .voice:nth-child(2) blockquote::before { color: var(--accent-blue); }
+    .voice:nth-child(3) blockquote::before { color: var(--accent-green); }
+
+    .voice .src {
+      display: grid; grid-template-columns: 26px 1fr; gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .monogram {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--accent); color: var(--text-on-accent);
+    }
+    .voice:nth-child(2) .monogram { background: var(--accent-blue); }
+    .voice:nth-child(3) .monogram { background: var(--accent-green); }
+    .voice .who {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .voice .where {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 1px;
+      font-weight: 400;
+    }
+
+    /* =========================================================
+       Row 6 — Colophon foot
+       ========================================================= */
+    .colophon-foot {
+      padding-top: 12px;
+      margin-top: 4px;
+      border-top: 1px solid var(--text);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .colophon-foot b { color: var(--text); font-weight: 500; }
+    .colophon-foot .center { color: var(--text-muted); }
+
+    /* =========================================================
+       The corner stamp — like a signed plate
+       ========================================================= */
+    .plate-mark {
+      position: absolute;
+      top: 56px; right: 72px;
+      font-family: var(--font-heading);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      padding: 4px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<main class="poster" aria-label="Anthropic-style design specimen, single frame">
+
+  <!-- Vertical signature in the corner -->
+  <div class="plate-mark" aria-hidden="true">Specimen No. 04</div>
+
+  <!-- ============ Row 1 — Masthead ============ -->
+  <header class="masthead">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" stroke="#141413" stroke-width="1.25"/>
+        <circle cx="12" cy="12" r="3" fill="#d97757"/>
+      </svg>
+      Atelier
+    </div>
+    <div class="center">Issue 04 — On Quiet Tools · MMXXVI</div>
+    <div class="right">A specimen sheet of the studio's design language</div>
+  </header>
+
+  <!-- ============ Row 2 — Hero ============ -->
+  <section class="hero">
+    <div>
+      <div class="hero-issue">A working note from the studio</div>
+      <h1>The best software <em>recedes</em> at the moment of use.</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="lede">
+        Atelier is a small studio making considered tools for teams who care about craft.
+        We borrow more from the print room than the product showroom — and ask less of the people we serve.
+      </p>
+      <div class="hero-actions">
+        <span class="btn btn-primary">Request access <span class="arrow">→</span></span>
+        <span class="btn btn-tertiary">Read the manifesto</span>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="40"  x2="400" y2="40"  stroke="#e8e6dc"/>
+        <line x1="0" y1="320" x2="400" y2="320" stroke="#e8e6dc"/>
+        <path d="M 40 280 A 160 160 0 0 1 360 280" stroke="#788c5d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="160" cy="180" r="100" fill="#d97757"/>
+        <circle cx="240" cy="234" r="64" fill="#6a9bcc" opacity="0.92"/>
+        <circle cx="280" cy="120" r="36" stroke="#141413" stroke-width="1.25" fill="none"/>
+        <line x1="80" y1="70" x2="80" y2="320" stroke="#788c5d" stroke-width="1.5"/>
+        <rect x="200" y="92" width="28" height="28" fill="#faf9f5"/>
+        <line x1="60"  y1="40"  x2="60"  y2="50"  stroke="#141413"/>
+        <line x1="340" y1="40"  x2="340" y2="50"  stroke="#141413"/>
+        <line x1="60"  y1="310" x2="60"  y2="320" stroke="#141413"/>
+        <line x1="340" y1="310" x2="340" y2="320" stroke="#141413"/>
+      </svg>
+      <div class="caption">
+        <span>Plate I.</span><span>Three forms, one composition</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Row 3 — Specimens band ============ -->
+  <section class="specimens">
+
+    <div class="pane">
+      <span class="label">Palette</span>
+      <div class="palette">
+        <div class="swatch">
+          <div class="chip" style="background: #faf9f5;"></div>
+          <div><div class="name">Surface</div><div class="hex">#faf9f5</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: #f3f1ea;"></div>
+          <div><div class="name">Sunken</div><div class="hex">#f3f1ea</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: #d97757; border-color: transparent;"></div>
+          <div><div class="name">Accent</div><div class="hex">#d97757</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: #6a9bcc; border-color: transparent;"></div>
+          <div><div class="name">Mist</div><div class="hex">#6a9bcc</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: #788c5d; border-color: transparent;"></div>
+          <div><div class="name">Olive</div><div class="hex">#788c5d</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: #141413; border-color: transparent;"></div>
+          <div><div class="name">Text</div><div class="hex">#141413</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane">
+      <span class="label">Type</span>
+      <div class="type-row"><span class="what">Display</span><span class="type-h1">Quiet <em>tools</em></span></div>
+      <div class="type-row"><span class="what">Heading</span><span class="type-h3">Restraint, on purpose.</span></div>
+      <div class="type-row"><span class="what">Body</span><span class="type-body">A serif body is the most distinctive choice a software product can make in 2026.</span></div>
+      <div class="type-row"><span class="what">Numerals</span><span class="type-mono">Old-style 1234 · Lining tabular 1234</span></div>
+      <div class="type-row"><span class="what">Caption</span><span class="type-meta">§ I — On the page · MMXXVI</span></div>
+    </div>
+
+    <div class="pane">
+      <span class="label">Components</span>
+      <div class="stack">
+        <div class="row">
+          <span class="btn btn-primary btn-sm">Primary</span>
+          <span class="btn btn-secondary btn-sm">Secondary</span>
+          <span class="btn btn-tertiary btn-sm">Tertiary</span>
+        </div>
+        <div class="row">
+          <span class="tag">Default</span>
+          <span class="tag tag-info">New</span>
+          <span class="tag tag-success">Ready</span>
+          <span class="tag tag-warn">Beta</span>
+        </div>
+        <aside class="callout">
+          <strong>Note.</strong> Backgrounds are never pure white — the cream is the single most distinctive choice.
+        </aside>
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input class="input" type="email" placeholder="you@somewhere.com" value="" readonly />
+        </label>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ Row 4 — Products + Canvas ============ -->
+  <section class="mid">
+
+    <!-- Products: Haiku · Sonnet · Opus -->
+    <div class="products" aria-label="Products named after poetic forms">
+      <article class="product-card">
+        <div class="product-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="5" y1="8"  x2="19" y2="8"/>
+            <line x1="5" y1="12" x2="17" y2="12"/>
+            <line x1="5" y1="16" x2="14" y2="16"/>
+          </svg>
+        </div>
+        <div>
+          <div class="name">Haiku</div>
+          <div class="form">Three lines · 5 / 7 / 5</div>
+          <p class="desc">A capture surface for fragments — the first sentence, the half-formed idea.</p>
+        </div>
+        <div class="meta-row">For<br><b>Daily notes</b></div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="4" y="4" width="16" height="16" rx="1.2"/>
+            <line x1="4"  y1="10" x2="20" y2="10"/>
+            <line x1="10" y1="4"  x2="10" y2="20"/>
+          </svg>
+        </div>
+        <div>
+          <div class="name">Sonnet</div>
+          <div class="form">Fourteen lines · volta included</div>
+          <p class="desc">Structured workspace where research becomes argument. Sources left, prose right.</p>
+        </div>
+        <div class="meta-row">For<br><b>Long-form work</b></div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M4 19 L9 6 L12 16 L15 9 L20 19"/>
+            <line x1="3" y1="19" x2="21" y2="19"/>
+          </svg>
+        </div>
+        <div>
+          <div class="name">Opus</div>
+          <div class="form">Multiple movements · for ensemble</div>
+          <p class="desc">A studio for projects that span months — manuscripts, products, dissertations.</p>
+        </div>
+        <div class="meta-row">For<br><b>Sustained work</b></div>
+      </article>
+    </div>
+
+    <!-- Canvas demo -->
+    <div class="canvas" aria-label="A product mockup showing conversation alongside a generated document">
+      <div class="canvas-bar">
+        <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="file">Sonnet · <b>note-on-craft.md</b> · saved 2 minutes ago</span>
+        <span class="model">Sonnet · 4.7</span>
+      </div>
+
+      <div class="canvas-body">
+
+        <div class="conv">
+          <div class="turn turn-user">
+            <div class="mark">You</div>
+            <div>
+              <div class="body">Take the rough notes from this morning and turn them into something I'd be willing to publish. Keep my voice.</div>
+              <div class="meta">9:41</div>
+            </div>
+          </div>
+
+          <div class="turn turn-claude">
+            <div class="mark">A</div>
+            <div>
+              <div class="body">Reading the notes. I see two threads — typography and friction. They want to be one essay, but typography is doing the heavy lifting. I'd lead with friction.</div>
+              <div class="meta">9:41 · drafted on the right</div>
+            </div>
+            <div class="tool">
+              <b>Plan</b>
+              Draft an opening on friction · pull two sentences from your March outline. Continue?
+            </div>
+          </div>
+
+          <div class="turn turn-user">
+            <div class="mark">You</div>
+            <div>
+              <div class="body">Yes — but cut the colophon. We have one already.</div>
+              <div class="meta">9:42</div>
+            </div>
+          </div>
+
+          <div class="conv-input">
+            <span class="ph">Reply, or type a new instruction…</span>
+            <span class="send" aria-hidden="true">↑</span>
+          </div>
+        </div>
+
+        <div class="doc">
+          <div class="doc-meta"><span>Draft</span><span>· Note · 380 words</span><span>· by Sasha Rivers</span></div>
+          <h3>A note on craft.</h3>
+          <div class="byline">Atelier · MMXXVI · § I — On the page</div>
+          <p>
+            Software has a habit of asking for attention it has not earned. It blinks, pulses, slides
+            in from the corner, suggests, nudges, congratulates. The result is a class of tools that
+            appear busy and feel exhausting.
+          </p>
+          <p>
+            We started Atelier because we wanted to spend our days inside something quieter. The
+            question we ask of every surface is the same the printer asks of a page: is anything here
+            doing work that the page itself is not already doing?
+          </p>
+          <div class="doc-foot">
+            <span>Drafted from <b>March outline</b> · No web search</span>
+            <span>Open in Sonnet →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ Row 5 — Voices ============ -->
+  <section class="voices">
+    <figure class="voice">
+      <blockquote>Atelier replaced four tools and the muscle memory of a decade. After two months I cannot think how I'd write any other way.</blockquote>
+      <figcaption class="src">
+        <span class="monogram">MK</span>
+        <span class="who">Mira Kowalski<span class="where">Senior Editor · The Long Form</span></span>
+      </figcaption>
+    </figure>
+    <figure class="voice">
+      <blockquote>What I value most isn't what Atelier does. It's what it refuses to do. It never interrupts, never congratulates, never asks me to share a streak.</blockquote>
+      <figcaption class="src">
+        <span class="monogram">JW</span>
+        <span class="who">Jules Wei<span class="where">Research Lead · Foundry Labs</span></span>
+      </figcaption>
+    </figure>
+    <figure class="voice">
+      <blockquote>We replaced our docs tool with Sonnet on a Tuesday. By Friday two engineers had written things they'd been meaning to write for years.</blockquote>
+      <figcaption class="src">
+        <span class="monogram">DR</span>
+        <span class="who">Daniela Reyes<span class="where">VP Engineering · Mosaic</span></span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ Row 6 — Foot ============ -->
+  <footer class="colophon-foot">
+    <span>© MMXXVI Atelier Studio · Portland · Brooklyn</span>
+    <span class="center">Set in <b>Tiempos Text</b> &amp; <b>Styrene A</b> · Specimen No. 04</span>
+    <span>Inspired by Anthropic's design language. Not affiliated.</span>
+  </footer>
+
+</main>
+
+</body>
+</html>
