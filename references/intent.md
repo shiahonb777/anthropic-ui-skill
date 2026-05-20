@@ -26,12 +26,21 @@ Specific patterns where intent becomes visible. Each one is something to *do*, n
 
 ### Naming
 
-How a thing is named is a design decision. The Claude model family is named after poetic forms — Haiku (short, dense), Sonnet (medium, structured), Opus (long, ambitious). The names communicate scope and intent without leaning on engineering version numbers.
+How a thing is named is a design decision. Anthropic's model family is named after poetic forms — *Haiku* (short, dense), *Sonnet* (medium, structured), *Opus* (long, ambitious). The names communicate scope and intent without leaning on engineering version numbers.
+
+But naming follows the *register* of the thing. Anthropic uses three registers, and they don't cross over:
+
+| Register | Used for | Examples |
+|---|---|---|
+| **Poetic / form-based** | The product family that benefits from suggesting scope and shape | *Haiku · Sonnet · Opus* |
+| **Industry-standard** | SaaS plans, where boring is a feature | *Free · Pro · Max · Team · Enterprise* |
+| **Code-names** | Projects, initiatives, internal experiments | *Project Glasswing · Project Vend · Project Deal* |
 
 **Apply:**
 
-- Name tiers, plans, and modes after what they *are for*, not what number they are. `Sketch` / `Draft` / `Manuscript` is more honest than `Free` / `Pro` / `Max`.
-- Avoid "Pro," "Plus," "Premium," "Ultra." They communicate price tier, not capability.
+- Use poetic / form-based names when there's a register shift to earn — typically for a model family, a creative tool, a product whose central job is generative work where "scope" or "scale" matters.
+- For ordinary subscription tiers, **use the boring industry words.** *Pro / Max / Team / Enterprise* don't compete for attention with the rest of the page; that's why they're right. Renaming them *Sketch / Draft / Manuscript* would be cute but read as branding-by-thesaurus, and it would *steal* the register that should belong to the more important product nouns.
+- Use proper code-names for cross-team initiatives that genuinely deserve one — they read as concrete referents from a notebook, not as marketing inventions. If "Project X" isn't a real ongoing thing, don't name it.
 - A bad name produces hours of explanatory copy. A good name lets the rest of the page stay quiet.
 - If you cannot explain your name in one sentence to a stranger, replace it.
 
@@ -111,7 +120,8 @@ A short before/after for common surfaces. The right column is what to write inst
 | Error | *Oops! Something went wrong 😢* | *That didn't go through. Try again, or write to us.* |
 | Confirm delete | *Are you sure?* | *This will remove the December 14 draft. There's no undo.* |
 | Newsletter | *Subscribe to our newsletter for tips!* | *We send a short letter once a month. No tracking, no upsells.* |
-| Pricing tier | *Pro · Plus · Premium* | *Sketch · Draft · Manuscript* |
+| Pricing tier | *Pro · Plus · Premium · Ultra* | *Pro · Max · Team · Enterprise* (boring is the feature) |
+| Pricing copy | *Contact sales →* | *$5 per million input tokens, $25 per million output. 90% off with caching.* |
 | Onboarding | *Let's get you set up in 3 easy steps! ✨* | *What are you working on?* |
 | Disclaimer | *AI can make mistakes. Verify responses.* | (Show provenance instead — *Drafted from your March outline. [Open source]* ) |
 

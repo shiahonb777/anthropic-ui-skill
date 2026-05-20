@@ -161,7 +161,9 @@ Specific failure modes that make a result feel "AI-generated" instead of designe
 **Right:** Inline product screenshots with a 1px border on cream, no perspective, no decoration.
 **Why:** The mockup-on-gradient is another major cliché.
 
-## Content & copy
+## Content & copy basics
+
+These are the simplest content-level tells. The deeper voice/copy reset lives in the *Copy & voice* section further down.
 
 ### "Effortless. Powerful. Built for you."
 **Wrong:** Generic three-word marketing slogans.
@@ -184,6 +186,38 @@ Specific failure modes that make a result feel "AI-generated" instead of designe
 **Wrong:** `background: #f3f4f6; border: none;`
 **Right:** White input with a 1px border on cream.
 **Why:** Borderless tinted inputs are a different aesthetic (consumer mobile). Here, inputs are interactive surfaces with clear edges.
+
+## Layout
+
+### Magazine-issue framing on a marketing page
+
+**Wrong:** *Issue 04 — On Quiet Tools · Vol. IV · MMXXVI* as a masthead on a product or company homepage. *§ I — Hero · § II — Plate · § III — Essay* style sectioning. Roman numerals everywhere. *Plate I.* captions on hero illustrations.
+**Right:** A short statement of what the page is for, and the page itself. Section headings as plain declarative phrases (*Our approach.* / *Use cases.* / *Trust and safety.*), not as numbered chapters from a journal.
+**Why:** Anthropic does not present itself as a periodical. It presents itself as a research firm. *Issue · Vol. · §* framing is an editorial-essay convention; it is appropriate when the page literally is an essay (a research note, a manifesto), and conspicuous when applied to a product or marketing page. Use the framing when the surface earns it; don't use it as a vibe.
+
+### Three-column feature grids
+
+**Wrong:** Three identical card slots with a circular brand-color icon, a one-word title (*Fast.* *Secure.* *Powerful.*), and two lines of copy.
+**Right:** Pick the most important claim and give it space. If you genuinely have three distinct claims, write them out as paragraphs or short sections, not as visually-equivalent tiles.
+**Why:** The three-card grid is the most cloned pattern in AI-generated design. It tells the reader nothing the page couldn't say better in a sentence. Anthropic's own surfaces do not use it.
+
+### Question-form section headings
+
+**Wrong:** *How does it work?* / *Why us?* / *Ready to get started?*
+**Right:** Statement headings: *Our approach.* / *What's new in 4.7.* / *Availability and pricing.*
+**Why:** A question heading is a substitute for thinking. A statement heading commits to what the section delivers; if you can't write the statement, the section needs to be rethought.
+
+### Testimonial carousels
+
+**Wrong:** Three customer logos rotating on a 5-second auto-advance.
+**Right:** All-or-nothing. Show every quote you have, with a discreet `01 / N` counter; or show three plainly stacked; or show none.
+**Why:** A carousel rotating through three implies either there are only three or the rest were edited. Anthropic's product pages list every testimonial they have — the page becomes long, and the implicit posture is "this much real evidence, all in one place."
+
+### Pricing teasers that bounce to a sales form
+
+**Wrong:** A pricing section that says *Custom pricing built for your business* and links to a contact form.
+**Right:** The actual price, written into the body of the page where the question naturally arises. *Pricing for Opus 4.7 starts at $5 per million input tokens and $25 per million output tokens.*
+**Why:** Hiding pricing fails the *honesty over reassurance* test. If you know the number, write the number.
 
 ## Copy & voice
 
@@ -235,9 +269,9 @@ The fastest way to make an Anthropic-styled page feel un-Anthropic is to leave d
 
 ### Number-suffix tier names
 
-**Wrong:** *Free · Pro · Plus · Premium · Ultra*. Tiers named after relative position, not capability.
-**Right:** *Sketch · Draft · Manuscript*. *Reader · Editor · Publisher*. *Solo · Studio · Foundry*. Names that say what the tier is *for*.
-**Why:** A bad name produces hours of explanatory copy. A good name lets the rest of the page stay quiet. *Haiku / Sonnet / Opus* is a worked example: the names communicate scope (short, structured, ambitious) without leaning on engineering version numbers.
+**Wrong:** *Free · Pro · Plus · Premium · Ultra*. Tiers named with non-descriptive ladder words (*Plus*, *Premium*, *Ultra*) where every tier overlaps with every other and the buyer has to read three pages to figure out what's actually different.
+**Right:** Use the boring industry words *exactly* — *Free · Pro · Max · Team · Enterprise* — but make sure the *contents* of each tier are unambiguously described in one line. Don't rename tiers to artistic nouns (*Sketch · Draft · Manuscript*) just to look distinctive: that steals the register that should go to the more important product names. The tier label should be background; the description should do the work.
+**Why:** *Haiku / Sonnet / Opus* is a worked example of when a register shift is appropriate — the model family benefits from suggesting scope, and the names are a real description of what each model is for. SaaS plans don't have that benefit. They are commercial instruments, and the calm path is to name them plainly and trust the rest of the page to communicate the differences.
 
 ### Generic feature names
 

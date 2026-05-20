@@ -30,7 +30,13 @@ Three layers, in priority order. If the lower layer isn't right, the upper layer
 5. **Whitespace does the heavy lifting.** Sections breathe. Density only increases for utilitarian surfaces — tables, code, dense settings. The page is paper, not a panel.
 6. **Editorial layout, not landing-page layout.** Vary alignment. Use a measure (~640px) for prose. Use rules, columns, and old-style numerals. Skip the centered-hero / three-feature-grid / quote / CTA assembly when you can. It's the visual signature of every AI-generated landing page.
 7. **Give generated work its own room.** Output the user will work with — a document, a chart, a code block longer than ten lines, an image — does not belong as a chat bubble. Side panel, focused view, pinned region. Conversation and canvas are different things.
-8. **Naming is a design surface.** *Haiku · Sonnet · Opus* is more honest than *Free · Pro · Max*. Tiers, modes, plans, features — name them after what they're for. A good name lets the rest of the page stay quiet.
+8. **Naming follows the register of the thing.** Use poetic forms (*Haiku · Sonnet · Opus*) only where a register shift is earned — typically a model family or creative product. SaaS tiers stay plain (*Pro · Max · Team · Enterprise*); projects get proper code-names (*Project Glasswing*). Don't rename tiers to artistic nouns; let the boring industry words be background so more important names can carry weight.
+8a. **Statement paragraphs do the work that subheads pretend to do.** A key claim — *Claude will remain ad-free.* / *Conversations with AI assistants are meaningfully different.* — gets its own paragraph in the body face, with no styling, sandwiched in the prose. No bold. No pull-quote. No color. Isolation is enough.
+8b. **Embed CTAs in real sentences.** *AI [research] and [products] that put safety at the frontier* — the bracketed words are the primary CTAs. Before designing a button, check whether a link inside a real sentence does the job. The reader is reading anyway.
+8c. **Section headings are declarative, not interrogative.** *Our approach.* not *How does it work?* If the statement-heading sounds banal, the section probably is, and should be cut or merged.
+8d. **Lists of writing are typography, not card grids.** News, research, and articles default to text rows: `Date · Category · Title · One-sentence description`. Reach for a thumbnail only when an image meaningfully changes whether a reader will click.
+8e. **Show the actual count.** When you have testimonials, articles, or releases, show all of them, paginated only by an honest counter (`01 / 27`). A carousel rotating through three implies either there are only three or the rest were edited; both readings undermine trust.
+8f. **Pricing is a number on the page, not a CTA.** Write the actual price into the body text where the question lives. Pricing teasers that bounce the user to a sales form fail the *honesty over reassurance* test from Layer 1.
 
 ### Layer 3 — Visuals (the part most people stop at)
 
@@ -207,6 +213,7 @@ These are the failure modes that make a result feel "generated" instead of desig
 ```
 SKILL.md                    you are here — principles, quick reference, workflows
 references/
+  observations.md           field notes from anthropic.com — what's actually there
   intent.md                 posture, voice, naming, friction (read this first for non-trivial work)
   tokens.md                 full token system + rationale
   components.md             button/input/card/nav/table/etc. patterns
