@@ -1,0 +1,65 @@
+{
+  "skill_name": "anthropic-ui-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a single-file HTML landing page for a product called 'Quill' — a writing tool for technical authors. It should have a hero with a headline and one CTA, a features section with three points (focused drafting, version history, and team review), a quote from a customer, and a footer. Use the Anthropic-inspired visual style. Output to quill.html.",
+      "expected_output": "A self-contained quill.html using the cream background (#faf9f5), serif body text, terra cotta accents used sparingly, generous section spacing (80px+ vertical), 6-8px radii, borders instead of heavy shadows, and a staggered page-load fade-in on top-level sections.",
+      "files": [],
+      "expectations": [
+        "Page background is #faf9f5 (warm cream), not pure white (#ffffff)",
+        "Body text uses a serif font family (Tiempos, Lora, or Georgia in the stack — not Inter, Roboto, Arial, or sans-serif)",
+        "Heading text uses a geometric sans-serif (Styrene, Poppins, or similar — not the same family as body)",
+        "Terra cotta (#d97757 or close) appears as the primary accent color",
+        "No purple-to-blue gradients are used anywhere",
+        "Border-radius on cards/sections is between 4px and 12px (no 16px+ pill-everywhere)",
+        "Cards/sections use 1px borders for separation rather than heavy box-shadows (shadow-xl/2xl absent)",
+        "At least one major section has 64px+ vertical padding/margin (generous whitespace)",
+        "Page-load animation includes a staggered fade-and-rise on top-level sections with soft easing",
+        "Content includes a hero, features (3 items), a quote, and a footer as requested",
+        "The page renders as valid standalone HTML (opens in a browser without errors)",
+        "prefers-reduced-motion media query is respected (animations disable when reduced motion is set)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here's a default-styled Tailwind dashboard layout. Restyle it to look Anthropic-inspired without changing the markup structure or behavior. Just update colors, fonts, radii, shadows, and any necessary CSS. Save the result as dashboard-restyled.html.\n\n```html\n<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\"><script src=\"https://cdn.tailwindcss.com\"></script></head>\n<body class=\"bg-white text-gray-900 font-sans\">\n  <nav class=\"bg-indigo-600 text-white px-8 h-16 flex items-center justify-between\">\n    <span class=\"font-bold text-xl\">Acme Analytics</span>\n    <button class=\"bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-2xl shadow-lg\">Upgrade</button>\n  </nav>\n  <main class=\"p-8 grid grid-cols-3 gap-4\">\n    <div class=\"bg-white p-6 rounded-2xl shadow-xl\">\n      <h3 class=\"text-gray-500 uppercase text-xs font-bold tracking-wider mb-2\">Total revenue</h3>\n      <p class=\"text-4xl font-black\">$48,210</p>\n      <p class=\"text-green-500 text-sm mt-2\">↑ 12.4% vs last month</p>\n    </div>\n    <div class=\"bg-white p-6 rounded-2xl shadow-xl\">\n      <h3 class=\"text-gray-500 uppercase text-xs font-bold tracking-wider mb-2\">Active users</h3>\n      <p class=\"text-4xl font-black\">2,471</p>\n      <p class=\"text-green-500 text-sm mt-2\">↑ 3.1% vs last month</p>\n    </div>\n    <div class=\"bg-white p-6 rounded-2xl shadow-xl\">\n      <h3 class=\"text-gray-500 uppercase text-xs font-bold tracking-wider mb-2\">Conversion rate</h3>\n      <p class=\"text-4xl font-black\">3.8%</p>\n      <p class=\"text-red-500 text-sm mt-2\">↓ 0.4% vs last month</p>\n    </div>\n  </main>\n</body></html>\n```",
+      "expected_output": "dashboard-restyled.html with the same three stat cards but using cream background, serif body text, terra cotta accents (only on key elements like the upgrade button), 1px borders instead of shadow-xl, 6-8px radii instead of rounded-2xl, body weight at 400 instead of font-black, and tasteful semantic color usage (olive green for positive deltas, brick red for negative).",
+      "files": [],
+      "expectations": [
+        "Background is #faf9f5 (cream), not bg-white",
+        "Body uses a serif font (the markup originally used font-sans; it should be replaced)",
+        "Heading font is Poppins/Styrene/geometric sans, not the default Tailwind sans-serif",
+        "Cards use a 1px border (e.g. #e8e6dc) and have NO shadow-xl/2xl",
+        "Card border-radius is between 4px and 12px (rounded-2xl is replaced)",
+        "Heavy weight (font-black, 900, 800, 700) is replaced with 600 or lighter",
+        "The indigo navbar background is removed — nav sits on cream with a bottom border",
+        "The purple Upgrade button uses terra cotta (#d97757) instead of purple-500",
+        "Positive delta text uses olive green (#788c5d) rather than green-500/lime",
+        "Negative delta text uses brick red (#b54545) rather than red-500",
+        "Three stat cards and the navbar markup are preserved (no structural changes)",
+        "The result opens as valid HTML and looks visibly different from the input"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Give me a reusable set of design tokens in Anthropic style that I can drop into any project. I want both a CSS-variables version (tokens.css) and a Tailwind preset (tailwind.preset.js). Include colors, typography, spacing, radii, and motion. Add comments explaining the key choices.",
+      "expected_output": "Two files: tokens.css with CSS custom properties for all token categories (with comments), and tailwind.preset.js extending the Tailwind theme. Both should include the warm cream surface, serif/sans font stacks with commercial-first then open-source fallbacks, the three accent colors (terra cotta, blue, green), the spacing scale, the radius scale, and the motion easing/durations.",
+      "files": [],
+      "expectations": [
+        "tokens.css defines --surface as #faf9f5 (cream)",
+        "tokens.css defines --accent as #d97757 (terra cotta)",
+        "tokens.css defines a heading font stack with Styrene listed before Poppins (commercial-first, open-source fallback)",
+        "tokens.css defines a body font stack with Tiempos listed before Lora (commercial-first, open-source fallback)",
+        "tokens.css includes spacing tokens for at least 4, 8, 16, 24, 64, and 96 pixel multiples",
+        "tokens.css includes border-radius tokens with values in the 4-12px range plus a pill (999px)",
+        "tokens.css includes motion tokens with at least one ease curve and 150/300/600ms duration scale",
+        "tailwind.preset.js extends (not replaces) the default Tailwind theme",
+        "tailwind.preset.js includes the same color palette as tokens.css (surface, text, accent, accent-blue, accent-green)",
+        "tailwind.preset.js exports via module.exports (CommonJS) so it can be required from tailwind.config.js",
+        "Both files include explanatory comments on at least the color, font, and motion sections",
+        "Neither file includes purple/indigo brand colors or Inter as a default font"
+      ]
+    }
+  ]
+}

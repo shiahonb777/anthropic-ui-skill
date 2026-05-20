@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier — Quiet tools for considered work</title>
+  <meta name="description" content="A small studio in Portland and Brooklyn making thoughtful workspaces for teams who care about craft.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       Tokens
+       ========================================================= */
+    :root {
+      --surface:        #faf9f5;
+      --surface-sunken: #f3f1ea;
+      --surface-deeper: #ece9dd;
+      --surface-raised: #ffffff;
+
+      --text:           #141413;
+      --text-muted:     #6b6a64;
+      --text-faint:     #b0aea5;
+      --text-on-accent: #faf9f5;
+
+      --border:         #e8e6dc;
+      --border-strong:  #c9c5b8;
+
+      --accent:            #d97757;
+      --accent-hover:      #c4613f;
+      --accent-soft:       #f4dccf;
+      --accent-blue:       #6a9bcc;
+      --accent-blue-soft:  #dbe6f1;
+      --accent-green:      #788c5d;
+      --accent-green-soft: #dde2d0;
+
+      --font-heading: "Styrene A", "Styrene B", "Poppins", "Helvetica Neue", Arial, sans-serif;
+      --font-body:    "Tiempos Text", "Tiempos", "Lora", Georgia, "Times New Roman", serif;
+      --font-mono:    "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, monospace;
+
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+      --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+      --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem;   --space-20: 5rem;   --space-24: 6rem; --space-32: 8rem;
+
+      --radius-sm: 4px; --radius: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 999px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-fast: 150ms; --duration: 300ms; --duration-slow: 600ms;
+
+      --reading: 38rem;          /* ~608px — long-form column */
+      --measure: 1240px;         /* outer chrome */
+      --gutter:  var(--space-8);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1.125rem;
+      line-height: 1.65;
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+      font-variant-numeric: oldstyle-nums proportional-nums;
+    }
+
+    /* Sans-serif chrome uses lining + tabular numerals */
+    .nav, .nav *, .btn, .meta, .label, .overline,
+    .footnotes, .colophon dl, .toc-num,
+    .article-meta, .article-link, .article-title,
+    .product-card, .product-card *, .canvas-demo, .canvas-demo *,
+    .footer, .footer *, .masthead, .masthead * {
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--text);
+      margin: 0;
+      font-weight: 600;
+    }
+
+    p { margin: 0 0 1em; }
+    p:last-child { margin-bottom: 0; }
+
+    a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: var(--border-strong);
+      transition: color var(--duration-fast) var(--ease-out),
+                  text-decoration-color var(--duration-fast) var(--ease-out);
+    }
+    a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+    .essay a, .voices a, .answers a { color: var(--accent); }
+    .essay a:hover, .voices a:hover, .answers a:hover { color: var(--accent-hover); }
+
+    ::selection { background: var(--accent-soft); color: var(--text); }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      background: var(--surface-sunken);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* =========================================================
+       Editorial primitives
+       ========================================================= */
+    .label, .overline {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-block;
+    }
+
+    hr.rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+    hr.rule-strong { border-top-color: var(--text); }
+
+    .ornament {
+      display: block;
+      text-align: center;
+      color: var(--text-faint);
+      font-family: var(--font-body);
+      letter-spacing: 1.4em;
+      padding: var(--space-12) 0;
+      user-select: none;
+      font-size: 1rem;
+    }
+    .ornament::before { content: "·  ·  ·"; }
+
+    /* =========================================================
+       Page chrome
+       ========================================================= */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(250, 249, 245, 0.92);
+      backdrop-filter: saturate(140%) blur(12px);
+      -webkit-backdrop-filter: saturate(140%) blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--measure);
+      margin: 0 auto;
+      padding: var(--space-5) var(--gutter);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--space-8);
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .nav-brand svg { width: 22px; height: 22px; }
+
+    .nav-links {
+      display: flex; gap: var(--space-6);
+      list-style: none; margin: 0; padding: 0;
+      justify-self: start;
+      margin-left: var(--space-8);
+    }
+    .nav-links a {
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
+
+    .nav-actions { display: flex; gap: var(--space-2); align-items: center; }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+    }
+
+    main { max-width: var(--measure); margin: 0 auto; padding: 0 var(--gutter); }
+
+    /* =========================================================
+       Issue masthead — the page opens like a magazine
+       ========================================================= */
+    .masthead {
+      padding: var(--space-12) 0 var(--space-8);
+      border-bottom: 1px solid var(--text);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--space-6);
+      align-items: baseline;
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .masthead .center {
+      text-align: center;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .masthead .right { text-align: right; }
+    @media (max-width: 720px) {
+      .masthead { grid-template-columns: 1fr 1fr; }
+      .masthead .center { display: none; }
+    }
+
+    /* =========================================================
+       Hero — full-bleed display headline + abstract still life
+       ========================================================= */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-16);
+      align-items: stretch;
+      padding: var(--space-16) 0 var(--space-24);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    @media (max-width: 880px) {
+      .hero { grid-template-columns: 1fr; gap: var(--space-12); padding: var(--space-12) 0 var(--space-16); }
+    }
+
+    .hero-text { display: flex; flex-direction: column; justify-content: space-between; }
+
+    .hero-issue {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .hero-issue::before {
+      content: "";
+      width: 2.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 8vw, 6.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-weight: 600;
+      max-width: 13ch;
+      margin: 0;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    /* Hairline below the headline that nods at journal sub-rules */
+    .hero h1 + .hero-rule {
+      width: 4.5rem;
+      height: 2px;
+      background: var(--text);
+      margin: var(--space-8) 0 var(--space-6);
+    }
+    .hero-lede {
+      max-width: 38ch;
+      color: var(--text-muted);
+      font-size: 1.1875rem;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;
+      margin-top: var(--space-10);
+    }
+    .hero-foot {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+    .hero-foot dt {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-1);
+    }
+    .hero-foot dd {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+
+    /* The abstract still-life — a composed SVG that uses all three
+       accent colors in a single composition. This is where "cycling
+       accents" stops being a rule and becomes a piece of artwork. */
+    .hero-art {
+      position: relative;
+      min-height: 28rem;
+      border-left: 1px solid var(--border);
+      padding-left: var(--space-8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 880px) {
+      .hero-art { border-left: none; padding-left: 0; min-height: 22rem; }
+    }
+    .hero-art svg { width: 100%; height: 100%; max-height: 32rem; }
+    .hero-art-caption {
+      position: absolute;
+      bottom: 0;
+      left: var(--space-8);
+      right: 0;
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      gap: var(--space-3);
+      align-items: baseline;
+    }
+    .hero-art-caption span:first-child { color: var(--accent); }
+    @media (max-width: 880px) { .hero-art-caption { left: 0; } }
+
+    /* =========================================================
+       Section header (used across most sections)
+       ========================================================= */
+    section {
+      padding: var(--space-24) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section.no-rule { border-bottom: none; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 14rem 1fr;
+      gap: var(--space-12);
+      align-items: baseline;
+      margin-bottom: var(--space-16);
+    }
+    @media (max-width: 880px) {
+      .section-head { grid-template-columns: 1fr; gap: var(--space-3); margin-bottom: var(--space-10); }
+    }
+    .section-head .label {
+      padding-top: var(--space-2);
+    }
+    .section-head h2 {
+      font-size: clamp(1.75rem, 3.4vw, 2.625rem);
+      line-height: 1.1;
+      letter-spacing: -0.018em;
+      font-weight: 600;
+      max-width: 22ch;
+      margin-bottom: var(--space-4);
+    }
+    .section-head h2 em { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
+    .section-head .lede {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      max-width: 56ch;
+    }
+
+    /* =========================================================
+       Buttons
+       ========================================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: var(--space-2);
+      height: 44px; padding: 0 var(--space-5);
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-family: var(--font-heading);
+      font-size: 0.9375rem; font-weight: 500;
+      cursor: pointer;
+      text-decoration: none !important;
+      transition: background-color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out),
+                  transform var(--duration-fast) var(--ease-out);
+    }
+    .btn-primary { background: var(--accent); color: var(--text-on-accent); }
+    .btn-primary:hover { background: var(--accent-hover); color: var(--text-on-accent); }
+    .btn-primary:active { transform: translateY(1px); }
+
+    .btn-secondary { background: transparent; color: var(--text); border-color: var(--border-strong); }
+    .btn-secondary:hover { background: var(--surface-sunken); border-color: var(--text); color: var(--text); }
+
+    .btn-tertiary { background: transparent; color: var(--text-muted); padding: 0 var(--space-3); }
+    .btn-tertiary:hover { background: var(--surface-sunken); color: var(--text); }
+
+    .btn-sm { height: 34px; padding: 0 var(--space-3); font-size: 0.8125rem; }
+
+    .btn-arrow { transition: transform var(--duration) var(--ease-out); display: inline-block; }
+    .btn:hover .btn-arrow { transform: translateX(3px); }
+
+    /* =========================================================
+       Products — Haiku · Sonnet · Opus
+       Demonstrating naming-after-poetic-form (the skill's own thesis)
+       ========================================================= */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 880px) { .products { grid-template-columns: 1fr; } }
+
+    .product-card {
+      padding: var(--space-10) var(--space-8) var(--space-8);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      position: relative;
+      transition: background-color var(--duration) var(--ease-out);
+    }
+    .product-card:last-child { border-right: none; }
+    @media (max-width: 880px) {
+      .product-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .product-card:last-child { border-bottom: none; }
+    }
+    .product-card:hover { background: var(--surface-sunken); }
+
+    .product-mark {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--accent);
+    }
+    .product-card:nth-child(2) .product-mark { color: var(--accent-blue); }
+    .product-card:nth-child(3) .product-mark { color: var(--accent-green); }
+    .product-mark svg { width: 28px; height: 28px; }
+
+    .product-name {
+      font-family: var(--font-body);
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .product-form {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+    .product-card:nth-child(1) .product-form { color: var(--accent); }
+    .product-card:nth-child(2) .product-form { color: var(--accent-blue); }
+    .product-card:nth-child(3) .product-form { color: var(--accent-green); }
+
+    .product-tagline {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .product-meta {
+      margin-top: auto;
+      padding-top: var(--space-5);
+      border-top: 1px dashed var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+    .product-meta dt {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .product-meta dd {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--text);
+    }
+
+    /* =========================================================
+       Canvas demo — the centerpiece. Conversation and canvas,
+       shown side-by-side, in the actual layout the skill prescribes.
+       ========================================================= */
+    .canvas-demo {
+      background: var(--surface-sunken);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      min-height: 32rem;
+      box-shadow: 0 1px 0 rgba(20,20,19,0.02);
+    }
+    @media (max-width: 880px) {
+      .canvas-demo { grid-template-columns: 1fr; min-height: 0; }
+    }
+
+    .canvas-demo-bar {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .canvas-demo-bar .dots {
+      display: flex; gap: 6px;
+    }
+    .canvas-demo-bar .dots span {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border-strong);
+    }
+    .canvas-demo-bar .file {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .canvas-demo-bar .file b { color: var(--text); font-weight: 500; }
+    .canvas-demo-bar .model {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .canvas-demo-bar .model::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    .canvas-conversation {
+      padding: var(--space-6);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      background: var(--surface);
+      overflow-y: auto;
+    }
+    @media (max-width: 880px) {
+      .canvas-conversation { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    .turn { font-size: 0.9375rem; line-height: 1.55; }
+    .turn-user, .turn-claude { display: grid; grid-template-columns: 28px 1fr; gap: var(--space-3); }
+    .turn-mark {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.625rem;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .turn-user .turn-mark {
+      background: var(--text);
+      color: var(--surface);
+    }
+    .turn-claude .turn-mark {
+      background: var(--accent);
+      color: var(--text-on-accent);
+    }
+    .turn-body { color: var(--text); }
+    .turn-user .turn-body { color: var(--text-muted); }
+    .turn-meta {
+      display: block;
+      margin-top: var(--space-1);
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .turn-tool {
+      grid-column: 2 / 3;
+      margin-top: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-left: 2px solid var(--accent-blue);
+      background: var(--accent-blue-soft);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #3a6088;
+      line-height: 1.5;
+    }
+    .turn-tool b {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.6875rem;
+      display: block;
+      margin-bottom: 2px;
+      color: var(--accent-blue);
+    }
+
+    .canvas-input {
+      margin-top: auto;
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .canvas-input .placeholder {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-style: italic;
+      color: var(--text-faint);
+    }
+    .canvas-input .send {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: var(--text-on-accent);
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+    }
+
+    /* The canvas itself — a tiny, real article rendered in the skill's
+       reading style. This is the point of the demo: the document gets
+       its own room, set with care. */
+    .canvas-doc {
+      padding: var(--space-10) var(--space-10) var(--space-8);
+      background: var(--surface);
+      overflow-y: auto;
+      max-height: 36rem;
+    }
+    @media (max-width: 880px) {
+      .canvas-doc { padding: var(--space-8) var(--space-6); max-height: 28rem; }
+    }
+    .canvas-doc-meta {
+      display: flex; gap: var(--space-3);
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-5);
+    }
+    .canvas-doc-meta span:first-child { color: var(--accent); }
+    .canvas-doc h3 {
+      font-family: var(--font-body);
+      font-size: 1.625rem;
+      line-height: 1.2;
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.005em;
+    }
+    .canvas-doc .byline {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-6);
+    }
+    .canvas-doc p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin-bottom: 1em;
+    }
+    .canvas-doc p:first-of-type::first-letter {
+      font-family: var(--font-body);
+      float: left;
+      font-size: 3em;
+      line-height: 0.9;
+      padding-right: 0.06em;
+      padding-top: 0.04em;
+      color: var(--text);
+    }
+    .canvas-doc-foot {
+      margin-top: var(--space-6);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .canvas-doc-foot .source {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .canvas-doc-foot .source b { color: var(--text); font-weight: 500; }
+
+    /* =========================================================
+       Essay (kept, with editorial flourishes intact)
+       ========================================================= */
+    .essay {
+      max-width: var(--reading);
+      margin: 0 auto;
+    }
+    .essay-head {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+    .essay-head .label { display: block; margin-bottom: var(--space-3); }
+    .essay-head h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 18ch;
+      margin: 0 auto;
+    }
+    .essay-head h2 em {
+      font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400;
+    }
+    .essay-head .byline {
+      margin-top: var(--space-4);
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .section-num {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin: var(--space-12) 0 var(--space-3);
+      text-align: center;
+    }
+    .section-num + h3 {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.625rem;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      font-weight: 400;
+      text-align: center;
+      max-width: 24ch;
+      margin: 0 auto var(--space-8);
+    }
+
+    .essay p {
+      font-size: 1.125rem;
+      line-height: 1.65;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+    .essay > .lede::first-letter {
+      font-family: var(--font-body);
+      font-weight: 500;
+      float: left;
+      font-size: 4.25em;
+      line-height: 0.85;
+      padding-right: 0.08em;
+      padding-top: 0.05em;
+      color: var(--text);
+    }
+
+    .pullquote {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.625rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      max-width: 28ch;
+      margin: var(--space-12) auto;
+      padding: var(--space-2) 0 var(--space-2) var(--space-6);
+      border-left: 2px solid var(--accent);
+    }
+    .pullquote-cite {
+      display: block;
+      margin-top: var(--space-3);
+      font-style: normal;
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .fn-ref {
+      font-family: var(--font-heading);
+      font-size: 0.7em;
+      vertical-align: super;
+      line-height: 0;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0 0.15em;
+    }
+    .fn-ref:hover { color: var(--accent-hover); }
+    .footnotes {
+      margin-top: var(--space-12);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      counter-reset: fn;
+      list-style: none;
+      padding-left: 0;
+    }
+    .footnotes li {
+      counter-increment: fn;
+      padding-left: 2.25rem;
+      position: relative;
+      margin-bottom: var(--space-3);
+    }
+    .footnotes li::before {
+      content: counter(fn);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       Customer voices — three irregular column heights
+       ========================================================= */
+    .voices {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+    @media (max-width: 880px) {
+      .voices { grid-template-columns: 1fr; gap: var(--space-10); }
+    }
+    .voice {
+      grid-column: span 4;
+      padding: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+    .voice:nth-child(1) { padding-top: var(--space-12); }
+    .voice:nth-child(2) { grid-column: span 5; }
+    .voice:nth-child(3) { padding-top: var(--space-16); }
+    @media (max-width: 880px) {
+      .voice, .voice:nth-child(2) { grid-column: 1 / -1; padding-top: var(--space-6); }
+    }
+
+    .voice blockquote {
+      margin: 0 0 var(--space-6);
+      font-family: var(--font-body);
+      font-size: 1.25rem;
+      line-height: 1.45;
+      letter-spacing: -0.005em;
+      color: var(--text);
+    }
+    .voice:nth-child(2) blockquote {
+      font-size: 1.5rem;
+      line-height: 1.35;
+      font-style: italic;
+    }
+    .voice blockquote::before {
+      content: "“";
+      color: var(--accent);
+    }
+    .voice:nth-child(2) blockquote::before { color: var(--accent-blue); }
+    .voice:nth-child(3) blockquote::before { color: var(--accent-green); }
+
+    .voice .source {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: var(--space-3);
+      align-items: center;
+    }
+    .voice .monogram {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      background: var(--accent);
+      color: var(--text-on-accent);
+    }
+    .voice:nth-child(2) .monogram { background: var(--accent-blue); }
+    .voice:nth-child(3) .monogram { background: var(--accent-green); }
+    .voice .who {
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .voice .where {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* =========================================================
+       Library — categorized writing list with hairline rules
+       ========================================================= */
+    .library { display: grid; gap: 0; }
+    .library-group {
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      gap: var(--space-12);
+      padding: var(--space-10) 0;
+      border-top: 1px solid var(--border);
+    }
+    .library-group:first-child { border-top: 1px solid var(--text); }
+    @media (max-width: 880px) {
+      .library-group { grid-template-columns: 1fr; gap: var(--space-4); }
+    }
+    .library-group .label { padding-top: var(--space-2); }
+    .library-list { list-style: none; margin: 0; padding: 0; }
+    .library-item {
+      display: grid;
+      grid-template-columns: 5rem 1fr 7rem;
+      gap: var(--space-5);
+      padding: var(--space-3) 0;
+      align-items: baseline;
+    }
+    .library-item + .library-item { border-top: 1px dotted var(--border); }
+    @media (max-width: 720px) {
+      .library-item { grid-template-columns: 1fr; gap: var(--space-1); padding: var(--space-4) 0; }
+    }
+    .library-item .num {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .library-item .title {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .library-item .title a { color: inherit; text-decoration: none; }
+    .library-item .title a:hover { color: var(--accent); }
+    .library-item .when {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: right;
+    }
+    @media (max-width: 720px) { .library-item .when { text-align: left; } }
+
+    /* =========================================================
+       Workshop — about the team, asymmetric layout
+       ========================================================= */
+    .workshop {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    @media (max-width: 880px) { .workshop { grid-template-columns: 1fr; gap: var(--space-10); } }
+
+    .workshop-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-5);
+      max-width: 16ch;
+    }
+    .workshop-text h2 em { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
+    .workshop-text p {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      max-width: 52ch;
+      margin-bottom: var(--space-6);
+    }
+    .workshop-stats {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: var(--space-10);
+      margin-top: var(--space-10);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+    .workshop-stats dt {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-1);
+    }
+    .workshop-stats dd {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1.875rem;
+      line-height: 1;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      font-feature-settings: "lnum" 0, "onum" 1;
+    }
+    .workshop-stats dd em { color: var(--accent); font-style: normal; }
+
+    .workshop-art {
+      aspect-ratio: 1;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: grid;
+      place-items: center;
+      background: var(--surface-sunken);
+      overflow: hidden;
+    }
+    .workshop-art svg { width: 80%; height: 80%; }
+
+    /* =========================================================
+       Notes (FAQ — answered as quiet prose, not a Q&A widget)
+       ========================================================= */
+    .answers {
+      display: grid;
+      grid-template-columns: 14rem 1fr;
+      gap: var(--space-12);
+    }
+    @media (max-width: 880px) { .answers { grid-template-columns: 1fr; gap: var(--space-6); } }
+
+    .answers-list { list-style: none; margin: 0; padding: 0; }
+    .answers-list > li {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-8);
+      align-items: baseline;
+    }
+    .answers-list > li:last-child { border-bottom: 1px solid var(--border); }
+    @media (max-width: 720px) { .answers-list > li { grid-template-columns: 1fr; gap: var(--space-2); } }
+    .answers-list .q {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .answers-list .a {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       Coda — quiet access line
+       ========================================================= */
+    .coda {
+      border-top: 1px solid var(--text);
+      padding-top: var(--space-12);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-12);
+      align-items: end;
+    }
+    @media (max-width: 720px) { .coda { grid-template-columns: 1fr; align-items: start; gap: var(--space-6); } }
+    .coda h2 {
+      font-size: clamp(1.875rem, 3.4vw, 2.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      max-width: 18ch;
+      margin: 0 0 var(--space-3);
+    }
+    .coda h2 em { font-family: var(--font-body); font-style: italic; color: var(--accent); font-weight: 400; }
+    .coda p { color: var(--text-muted); margin: 0; max-width: 36ch; font-size: 1rem; }
+
+    /* =========================================================
+       Footer — magazine back-of-book, dense and considered
+       ========================================================= */
+    .footer {
+      background: var(--surface-sunken);
+      border-top: 1px solid var(--border);
+      margin-top: var(--space-32);
+    }
+    .footer-inner {
+      max-width: var(--measure);
+      margin: 0 auto;
+      padding: var(--space-16) var(--gutter) var(--space-10);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: var(--space-12);
+      align-items: start;
+    }
+    @media (max-width: 880px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    .footer-brand h3 {
+      font-family: var(--font-body);
+      font-size: 2.25rem;
+      line-height: 1.1;
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.01em;
+    }
+    .footer-brand h3 em { font-style: italic; color: var(--accent); }
+    .footer-brand p {
+      color: var(--text-muted);
+      max-width: 36ch;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin-bottom: var(--space-6);
+    }
+    .footer-form {
+      display: flex;
+      gap: var(--space-2);
+      max-width: 360px;
+    }
+    .footer-form input {
+      flex: 1;
+      height: 38px;
+      padding: 0 var(--space-3);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+    .footer-form input::placeholder { color: var(--text-faint); font-style: italic; }
+    .footer-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.12);
+    }
+    .footer-form button {
+      height: 38px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: var(--surface);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color var(--duration-fast) var(--ease-out);
+    }
+    .footer-form button:hover { background: var(--accent); border-color: var(--accent); }
+    .footer-form-note {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: var(--space-3);
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+    }
+    .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+    .footer-col a {
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+    .footer-col a:hover { color: var(--accent); }
+
+    .footer-mid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      padding: var(--space-10) 0 var(--space-6);
+      margin-top: var(--space-12);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 720px) { .footer-mid { grid-template-columns: 1fr 1fr; } }
+    .footer-mid dt {
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-1);
+    }
+    .footer-mid dd {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      padding-top: var(--space-6);
+      margin-top: var(--space-8);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      font-family: var(--font-heading);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .footer-bottom a { color: var(--text-faint); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* =========================================================
+       Motion
+       ========================================================= */
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes draw-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .rise { animation: rise-in 700ms var(--ease-out) both; }
+    .rise-2 { animation-delay: 80ms; }
+    .rise-3 { animation-delay: 160ms; }
+    .rise-4 { animation-delay: 240ms; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity var(--duration-slow) var(--ease-out),
+                  transform var(--duration-slow) var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .hero-art svg {
+      animation: draw-in 1200ms var(--ease-out) both;
+      animation-delay: 240ms;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================== Nav ========================== -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25"/>
+          <circle cx="12" cy="12" r="3" fill="#d97757"/>
+        </svg>
+        Atelier
+      </a>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#essay" aria-current="page">Writing</a></li>
+        <li><a href="#workshop">Studio</a></li>
+        <li><a href="#answers">Answers</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-tertiary btn-sm">Sign in</a>
+        <a href="#coda" class="btn btn-primary btn-sm">Request access</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ========================== Issue masthead ========================== -->
+    <header class="masthead" aria-label="Issue masthead">
+      <div>Atelier · Quarterly</div>
+      <div class="center">Issue 04 — On Quiet Tools</div>
+      <div class="right">May MMXXVI</div>
+    </header>
+
+    <!-- ========================== Hero ========================== -->
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <div>
+          <div class="hero-issue rise">A working note from the studio</div>
+          <h1 class="rise rise-2">
+            The best software <em>recedes</em> at the moment of use.
+          </h1>
+          <div class="hero-rule rise rise-3" aria-hidden="true"></div>
+          <p class="hero-lede rise rise-3">
+            Atelier is a small studio in Portland and Brooklyn making considered tools for teams who care about craft.
+            We borrow more from the print room than the product showroom — and ask less of the people we serve.
+          </p>
+          <div class="hero-actions rise rise-4">
+            <a href="#coda" class="btn btn-primary">Request access <span class="btn-arrow">→</span></a>
+            <a href="#essay" class="btn btn-tertiary">Read the manifesto</a>
+          </div>
+        </div>
+
+        <dl class="hero-foot rise rise-4">
+          <div>
+            <dt>Working since</dt>
+            <dd>MMXXIII</dd>
+          </div>
+          <div>
+            <dt>Studio of</dt>
+            <dd>Eleven, slowly hiring</dd>
+          </div>
+          <div>
+            <dt>Set in</dt>
+            <dd>Tiempos &amp; Styrene</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <!--
+          Composed still life: three accent colors in one frame, deliberately balanced
+          so no single color dominates. This visualizes the cycling-accent rule the
+          skill prescribes — instead of using each color in a different button.
+        -->
+        <svg viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract composition with terra-cotta, blue, and olive forms">
+          <!-- pencil rules -->
+          <line x1="0" y1="80"  x2="400" y2="80"  stroke="#e8e6dc" stroke-width="1"/>
+          <line x1="0" y1="440" x2="400" y2="440" stroke="#e8e6dc" stroke-width="1"/>
+
+          <!-- olive arc — sits behind everything -->
+          <path d="M 40 380 A 200 200 0 0 1 360 380" stroke="#788c5d" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+          <!-- terra-cotta sun (the focal element) -->
+          <circle cx="160" cy="260" r="120" fill="#d97757"/>
+
+          <!-- blue plate, eclipsing the sun bottom-right -->
+          <circle cx="248" cy="320" r="78" fill="#6a9bcc" opacity="0.92"/>
+
+          <!-- thin charcoal ring, calling back to nav mark -->
+          <circle cx="290" cy="180" r="44" stroke="#141413" stroke-width="1.25" fill="none"/>
+
+          <!-- olive vertical, like a shelf -->
+          <line x1="80" y1="120" x2="80" y2="440" stroke="#788c5d" stroke-width="1.5"/>
+
+          <!-- a small cream square punching through, restating the canvas -->
+          <rect x="206" y="144" width="36" height="36" fill="#faf9f5"/>
+
+          <!-- editorial axis cross-tick -->
+          <line x1="60" y1="80" x2="60" y2="92" stroke="#141413" stroke-width="1"/>
+          <line x1="340" y1="80" x2="340" y2="92" stroke="#141413" stroke-width="1"/>
+          <line x1="60" y1="428" x2="60" y2="440" stroke="#141413" stroke-width="1"/>
+          <line x1="340" y1="428" x2="340" y2="440" stroke="#141413" stroke-width="1"/>
+        </svg>
+        <div class="hero-art-caption">
+          <span>Plate I.</span>
+          <span>Three forms, one composition</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== Products ========================== -->
+    <section class="reveal" id="products">
+      <div class="section-head">
+        <span class="label">§ I — Products</span>
+        <div>
+          <h2>Three tools, named for the form they take.</h2>
+          <p class="lede">
+            We built our products the way poets choose forms — by what fits the work, not by what
+            sounds bigger. <em>Haiku</em> is short and dense. <em>Sonnet</em> is structured and reliable.
+            <em>Opus</em> is long and ambitious. The names tell you what to reach for.
+          </p>
+        </div>
+      </div>
+
+      <div class="products">
+        <article class="product-card">
+          <div class="product-mark">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <line x1="6" y1="10" x2="26" y2="10"/>
+              <line x1="6" y1="16" x2="22" y2="16"/>
+              <line x1="6" y1="22" x2="18" y2="22"/>
+            </svg>
+          </div>
+          <div>
+            <div class="product-name">Haiku</div>
+            <div class="product-form">Three lines · 5 / 7 / 5</div>
+          </div>
+          <p class="product-tagline">A capture surface for fragments — the first sentence, the half-formed idea, the line you don't want to lose.</p>
+          <dl class="product-meta">
+            <div><dt>For</dt><dd>Daily notes</dd></div>
+            <div><dt>Reach for</dt><dd>Drafting</dd></div>
+            <div><dt>Reads in</dt><dd>Seconds</dd></div>
+            <div><dt>Lives on</dt><dd>One screen</dd></div>
+          </dl>
+        </article>
+
+        <article class="product-card">
+          <div class="product-mark">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <rect x="6" y="6" width="20" height="20" rx="1.5"/>
+              <line x1="6" y1="13" x2="26" y2="13"/>
+              <line x1="13" y1="6"  x2="13" y2="26"/>
+            </svg>
+          </div>
+          <div>
+            <div class="product-name">Sonnet</div>
+            <div class="product-form">Fourteen lines · volta included</div>
+          </div>
+          <p class="product-tagline">A structured workspace where research becomes argument. Sources on the left, prose on the right, citations that find themselves.</p>
+          <dl class="product-meta">
+            <div><dt>For</dt><dd>Long-form work</dd></div>
+            <div><dt>Reach for</dt><dd>Editing</dd></div>
+            <div><dt>Reads in</dt><dd>An hour</dd></div>
+            <div><dt>Lives on</dt><dd>Two panels</dd></div>
+          </dl>
+        </article>
+
+        <article class="product-card">
+          <div class="product-mark">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <path d="M6 26 L12 8 L16 22 L20 12 L26 26"/>
+              <line x1="4" y1="26" x2="28" y2="26"/>
+            </svg>
+          </div>
+          <div>
+            <div class="product-name">Opus</div>
+            <div class="product-form">Multiple movements · for ensemble</div>
+          </div>
+          <p class="product-tagline">A studio for projects that span months. Manuscripts, products, dissertations — the work you'd be embarrassed to ship in a chat window.</p>
+          <dl class="product-meta">
+            <div><dt>For</dt><dd>Sustained work</dd></div>
+            <div><dt>Reach for</dt><dd>Composing</dd></div>
+            <div><dt>Reads in</dt><dd>Months</dd></div>
+            <div><dt>Lives on</dt><dd>Many surfaces</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================== Canvas demo ========================== -->
+    <section class="reveal">
+      <div class="section-head">
+        <span class="label">§ II — Plate</span>
+        <div>
+          <h2>Conversation here. The <em>work</em> there.</h2>
+          <p class="lede">
+            A document, a chart, a piece of writing — none of these belong in a chat bubble. We give the work
+            its own room, set with the same care you'd give a printed page. The conversation stays a conversation.
+          </p>
+        </div>
+      </div>
+
+      <div class="canvas-demo" role="img" aria-label="A product mockup of the conversation pane on the left and a generated document on the right.">
+        <div class="canvas-demo-bar">
+          <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="file">
+            Sonnet · <b>note-on-craft.md</b> · saved 2 minutes ago
+          </div>
+          <div class="model">Sonnet · 4.7</div>
+        </div>
+
+        <div class="canvas-conversation">
+          <div class="turn turn-user">
+            <div class="turn-mark">You</div>
+            <div>
+              <div class="turn-body">
+                Take the rough notes from this morning and turn them into something I'd be willing to publish.
+                Keep my voice. Don't soften it.
+              </div>
+              <span class="turn-meta">9:41</span>
+            </div>
+          </div>
+
+          <div class="turn turn-claude">
+            <div class="turn-mark">A</div>
+            <div>
+              <div class="turn-body">
+                Reading the notes now. I can see two threads — the typography one and the friction one. They want to be one essay,
+                but the typography section is doing the heavy lifting. I'd like to lead with friction and treat the type as the example.
+              </div>
+              <span class="turn-meta">9:41 · drafted on the right</span>
+            </div>
+            <div class="turn-tool">
+              <b>Plan</b>
+              Draft an opening on friction · pull two sentences from your March outline · end with a colophon. Continue?
+            </div>
+          </div>
+
+          <div class="turn turn-user">
+            <div class="turn-mark">You</div>
+            <div>
+              <div class="turn-body">Yes — but cut the colophon. We have one already.</div>
+              <span class="turn-meta">9:42</span>
+            </div>
+          </div>
+
+          <div class="turn turn-claude">
+            <div class="turn-mark">A</div>
+            <div>
+              <div class="turn-body">
+                Done. First pass on the right. I left two questions in the margin — one about the order of paragraphs three and four,
+                one about whether you want the pull-quote.
+              </div>
+              <span class="turn-meta">9:43</span>
+            </div>
+          </div>
+
+          <div class="canvas-input">
+            <span class="placeholder">Reply, or type a new instruction…</span>
+            <span class="send" aria-hidden="true">↑</span>
+          </div>
+        </div>
+
+        <div class="canvas-doc">
+          <div class="canvas-doc-meta">
+            <span>Draft</span><span>· Note · 380 words ·</span><span>by Sasha Rivers</span>
+          </div>
+          <h3>A note on craft.</h3>
+          <div class="byline">Atelier · May MMXXVI · §&nbsp;I — On the page</div>
+          <p>
+            Software has a habit of asking for attention it has not earned. It blinks, pulses, slides
+            in from the corner, suggests, nudges, congratulates. The result is a class of tools that
+            appear busy and feel exhausting — a quality the people who make them rarely intend, but
+            rarely resist either.
+          </p>
+          <p>
+            We started Atelier because we wanted to spend our days inside something quieter. The
+            question we ask of every surface is the same the printer asks of a page: is anything here
+            doing work that the page itself is not already doing? If a button can be a sentence, let it
+            be a sentence. Take away what you can, then take away a little more.
+          </p>
+          <div class="canvas-doc-foot">
+            <div class="source">Drafted from <b>March outline</b> · No web search</div>
+            <a href="#" class="btn btn-secondary btn-sm">Open in Sonnet</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== Essay ========================== -->
+    <section class="reveal" id="essay">
+      <article class="essay">
+        <header class="essay-head">
+          <span class="label">§ III — Essay</span>
+          <h2>Restraint is a <em>feature</em>, not a feature list.</h2>
+          <p class="byline">By Sasha Rivers · 6 min · Manifesto</p>
+        </header>
+
+        <p class="lede">
+          Every product we ship begins with a list of things it will not do. Not for fashion, but
+          because each refusal frees the remaining surface to do its one job well. The customer
+          notices the absence of clutter the way you notice a quiet room: not all at once, but as the
+          steady, continuing relief of not being addressed by everything.
+        </p>
+
+        <span class="section-num">I.</span>
+        <h3>A page, not a panel.</h3>
+
+        <p>
+          The instinct to wrap everything in a card is a recent one. For most of typographic history a
+          page got its structure from rules, columns, and white space. The card era — borders that
+          round, shadows that bloom, surfaces that float — has the unfortunate property of making
+          every kind of content look like the same kind of content: a tile, awaiting a click.<a href="#fn-1" class="fn-ref" id="ref-1">1</a>
+        </p>
+
+        <aside class="pullquote">
+          Take away what you can, then take away a little more.
+          <span class="pullquote-cite">From the manifesto, §&nbsp;I</span>
+        </aside>
+
+        <span class="section-num">II.</span>
+        <h3>Reading, not scanning.</h3>
+
+        <p>
+          A serif body is the most distinctive choice a software product can make in 2026. It says,
+          without saying so, that what's here is meant to be read — not glanced at on the way to the
+          next CTA. We pair it with a geometric sans for the spine of the interface (navigation,
+          labels, chrome) and reserve italics for emphasis the way a writer would, sparingly and on
+          purpose.
+        </p>
+
+        <p>
+          Numbers, too, get attention they rarely receive. In running prose we use old-style numerals
+          — <span style="font-variant-numeric: oldstyle-nums;">1234567890</span> — which sit on the
+          baseline like lowercase letters. In tables, captions, and chrome we switch to lining,
+          tabular numerals — <span style="font-variant-numeric: lining-nums tabular-nums;">1234567890</span>
+           — so columns of figures align without help.
+        </p>
+
+        <span class="section-num">III.</span>
+        <h3>Friction, on purpose.</h3>
+
+        <p>
+          We add friction where it's earned. Before publishing, before deleting, before sending —
+          there's a brief surface that tells you, in plain sentences, what's about to happen. Not
+          a yes/no modal. A summary, written like a colleague would write it.<a href="#fn-2" class="fn-ref" id="ref-2">2</a>
+          The user is doing work. The product should treat that work as something that deserves a
+          last look.
+        </p>
+
+        <ol class="footnotes">
+          <li id="fn-1">
+            For more on this, see Bringhurst's <em>The Elements of Typographic Style</em>, particularly the
+            chapter on shaping the page. We borrow more from him than from any modern UI book.
+            <a href="#ref-1">↩</a>
+          </li>
+          <li id="fn-2">
+            See also: Anthropic's <em>Plan Mode</em>, where the model summarizes its intended action and
+            waits for the user before proceeding. The pause is a feature, not an accident. <a href="#ref-2">↩</a>
+          </li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- ========================== Voices ========================== -->
+    <section class="reveal">
+      <div class="section-head">
+        <span class="label">§ IV — Voices</span>
+        <div>
+          <h2>From the people doing the work.</h2>
+          <p class="lede">Customers in their own words. We don't write the copy, and we don't crop the quotes.</p>
+        </div>
+      </div>
+
+      <div class="voices">
+        <figure class="voice">
+          <blockquote>
+            Atelier replaced four tools and the muscle memory of a decade. After two months I cannot
+            think how I'd write any other way.
+          </blockquote>
+          <figcaption class="source">
+            <span class="monogram" aria-hidden="true">MK</span>
+            <span class="who">
+              Mira Kowalski
+              <span class="where">Senior Editor · The Long Form</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="voice">
+          <blockquote>
+            What I value most isn't what Atelier does. It's what it refuses to do. It never interrupts.
+            It never congratulates. It never asks me to share a streak. It just lets me keep thinking.
+          </blockquote>
+          <figcaption class="source">
+            <span class="monogram" aria-hidden="true">JW</span>
+            <span class="who">
+              Jules Wei
+              <span class="where">Research Lead · Foundry Labs</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="voice">
+          <blockquote>
+            We replaced our internal docs tool with Sonnet on a Tuesday. By Friday two engineers had
+            written things they'd been meaning to write for years.
+          </blockquote>
+          <figcaption class="source">
+            <span class="monogram" aria-hidden="true">DR</span>
+            <span class="who">
+              Daniela Reyes
+              <span class="where">VP Engineering · Mosaic</span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ========================== Library ========================== -->
+    <section class="reveal" id="library">
+      <div class="section-head">
+        <span class="label">§ V — Library</span>
+        <div>
+          <h2>Other notes from the workbench.</h2>
+          <p class="lede">A reading list grouped by what we were thinking about. New entries on most Wednesdays.</p>
+        </div>
+      </div>
+
+      <div class="library">
+        <div class="library-group">
+          <span class="label">Manifesto</span>
+          <ol class="library-list">
+            <li class="library-item">
+              <span class="num">№ 04</span>
+              <span class="title"><a href="#">A serif body in a sans-serif world</a></span>
+              <span class="when">14 May 2026 · 8 min</span>
+            </li>
+            <li class="library-item">
+              <span class="num">№ 03</span>
+              <span class="title"><a href="#">Why our backgrounds are never white</a></span>
+              <span class="when">28 Apr 2026 · 5 min</span>
+            </li>
+            <li class="library-item">
+              <span class="num">№ 02</span>
+              <span class="title"><a href="#">The case against the centered hero</a></span>
+              <span class="when">17 Mar 2026 · 4 min</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="library-group">
+          <span class="label">Engineering</span>
+          <ol class="library-list">
+            <li class="library-item">
+              <span class="num">№ 12</span>
+              <span class="title"><a href="#">Reading old-style numerals into the chrome</a></span>
+              <span class="when">02 May 2026 · 9 min</span>
+            </li>
+            <li class="library-item">
+              <span class="num">№ 11</span>
+              <span class="title"><a href="#">Reducing motion without losing presence</a></span>
+              <span class="when">03 Apr 2026 · 11 min</span>
+            </li>
+            <li class="library-item">
+              <span class="num">№ 10</span>
+              <span class="title"><a href="#">Plan mode, or, why we added a step</a></span>
+              <span class="when">22 Feb 2026 · 7 min</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="library-group">
+          <span class="label">Field notes</span>
+          <ol class="library-list">
+            <li class="library-item">
+              <span class="num">№ 19</span>
+              <span class="title"><a href="#">A week of writing inside Sonnet</a></span>
+              <span class="when">10 May 2026 · 12 min</span>
+            </li>
+            <li class="library-item">
+              <span class="num">№ 18</span>
+              <span class="title"><a href="#">Hiring our first researcher</a></span>
+              <span class="when">21 Mar 2026 · 6 min</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== Workshop ========================== -->
+    <section class="reveal" id="workshop">
+      <div class="workshop">
+        <div class="workshop-text">
+          <span class="label" style="margin-bottom: var(--space-3);">§ VI — Studio</span>
+          <h2>A studio of <em>eleven</em>, hiring slowly.</h2>
+          <p>
+            We're a small team in Portland and Brooklyn — designers, engineers, and a researcher who
+            spends most of her days reading. We work in two-week cycles, ship when it's right, and
+            answer every customer email by hand.
+          </p>
+          <p>
+            We have no growth team and no plans to start one. We're more interested in keeping the work
+            good than in keeping the calendar full.
+          </p>
+          <a href="#" class="btn btn-secondary">Read about the studio <span class="btn-arrow">→</span></a>
+
+          <dl class="workshop-stats">
+            <div>
+              <dt>Founded</dt>
+              <dd>MMXXIII</dd>
+            </div>
+            <div>
+              <dt>Studio</dt>
+              <dd><em>11</em> people</dd>
+            </div>
+            <div>
+              <dt>Open roles</dt>
+              <dd><em>2</em> this quarter</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="workshop-art" aria-hidden="true">
+          <!-- A different abstract — the studio mark, like a press device -->
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="84" stroke="#141413" stroke-width="1.25"/>
+            <circle cx="100" cy="100" r="58" stroke="#141413" stroke-width="1" stroke-dasharray="2 4"/>
+            <circle cx="100" cy="100" r="22" fill="#d97757"/>
+            <line x1="100" y1="16"  x2="100" y2="36"  stroke="#141413" stroke-width="1.25"/>
+            <line x1="100" y1="164" x2="100" y2="184" stroke="#141413" stroke-width="1.25"/>
+            <line x1="16"  y1="100" x2="36"  y2="100" stroke="#141413" stroke-width="1.25"/>
+            <line x1="164" y1="100" x2="184" y2="100" stroke="#141413" stroke-width="1.25"/>
+            <text x="100" y="105" text-anchor="middle" font-family="Lora, Georgia, serif" font-style="italic" font-size="14" fill="#faf9f5">Atelier</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== Answers ========================== -->
+    <section class="reveal" id="answers">
+      <div class="answers">
+        <div>
+          <span class="label">§ VII — Answers</span>
+          <h2 style="font-size: clamp(1.75rem, 3.4vw, 2.625rem); line-height: 1.1; letter-spacing: -0.018em; max-width: 14ch; margin-top: var(--space-3);">
+            Plain answers to the questions we hear most.
+          </h2>
+        </div>
+        <ol class="answers-list" aria-label="Frequently answered">
+          <li>
+            <span class="q">Is there a free plan?</span>
+            <span class="a">No. We've tried it. The economics push us toward designs we don't believe in. There's a 30-day trial instead, and we'll give a longer one if you ask.</span>
+          </li>
+          <li>
+            <span class="q">Do you train models on customer documents?</span>
+            <span class="a">No. We don't, and we won't. Your work is your work.</span>
+          </li>
+          <li>
+            <span class="q">Will Atelier integrate with my existing tools?</span>
+            <span class="a">Some. We'd rather support a few well than many poorly. The current list is on the integrations page.</span>
+          </li>
+          <li>
+            <span class="q">Can I export everything?</span>
+            <span class="a">Yes. Plain Markdown, with sources and citations preserved. We send you a zip and we don't keep a copy.</span>
+          </li>
+          <li>
+            <span class="q">Why is the page background not white?</span>
+            <span class="a">Because pure white reads as harsh and corporate. The slight cream is one of the small choices that, taken together, makes the work feel like a printed page rather than a panel.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========================== Coda ========================== -->
+    <section class="reveal no-rule" id="coda">
+      <div class="coda">
+        <div>
+          <h2>Try Atelier <em>with</em> your team.</h2>
+          <p>Two weeks, no card required. We answer every reply by hand, usually within a day.</p>
+        </div>
+        <a href="#" class="btn btn-primary">Request access <span class="btn-arrow">→</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================== Footer ========================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>A quieter way to <em>think</em> about software.</h3>
+          <p>The Atelier letter — a short note, every other Wednesday, on writing, design, and the slow making of tools. No tracking, no upsells. Unsubscribe in one click.</p>
+          <form class="footer-form" onsubmit="event.preventDefault();">
+            <label for="newsletter-email" style="position:absolute; left:-9999px;">Email address</label>
+            <input id="newsletter-email" type="email" placeholder="you@somewhere.com" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="footer-form-note">~ 1,840 readers · sent every other week</div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="#">Haiku</a></li>
+            <li><a href="#">Sonnet</a></li>
+            <li><a href="#">Opus</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press kit</a></li>
+            <li><a href="#">Manifesto</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Library</h4>
+          <ul>
+            <li><a href="#">Writing</a></li>
+            <li><a href="#">Field notes</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Archive</a></li>
+            <li><a href="#">RSS</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <dl class="footer-mid" aria-label="Studio masthead">
+        <div>
+          <dt>Editor</dt>
+          <dd>Sasha Rivers<br><span style="color:var(--text-muted)">Founder</span></dd>
+        </div>
+        <div>
+          <dt>Design</dt>
+          <dd>Iris Tan<br><span style="color:var(--text-muted)">Studio principal</span></dd>
+        </div>
+        <div>
+          <dt>Engineering</dt>
+          <dd>Owen Park<br><span style="color:var(--text-muted)">Studio principal</span></dd>
+        </div>
+        <div>
+          <dt>Set in</dt>
+          <dd>Tiempos Text · Styrene A<br><span style="color:var(--text-muted)">JetBrains Mono for code</span></dd>
+        </div>
+      </dl>
+
+      <div class="footer-bottom">
+        <span>© MMXXVI Atelier Studio · Portland · Brooklyn</span>
+        <span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Press</a></span>
+        <span>Inspired by Anthropic's design language. Not affiliated.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered reveal — animate once, soft easing, respects reduced motion.
+    (function () {
+      var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if (prefersReduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
