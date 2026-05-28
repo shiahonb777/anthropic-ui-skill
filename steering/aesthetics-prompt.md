@@ -37,11 +37,11 @@ This is the most important sentence in the document. **The cookbook's general ad
 Strongly, on the methodology:
 
 - **Avoid converging to "on distribution" defaults.** Yes. The skill's whole anti-patterns document is built around this idea.
-- **Address dimensions individually.** Yes — `references/tokens.md` (color, type, spacing), `references/motion.md` (motion), and `references/components.md` (layout) split the job the same way.
+- **Address dimensions individually.** Yes — `steering/tokens.md` (color, type, spacing), `steering/motion.md` (motion), and `steering/components.md` (layout) split the job the same way.
 - **Avoid Inter, Roboto, generic fonts.** Yes.
 - **Avoid purple-on-white gradients.** Yes.
 - **One dominant accent + sharp punctuation outperforms timid evenly-distributed colors.** Yes — this is the *cycling-accent rule* in the skill.
-- **Page load with staggered reveals is the highest-impact motion.** Yes — see `references/motion.md`.
+- **Page load with staggered reveals is the highest-impact motion.** Yes — see `steering/motion.md`.
 - **Commit to a cohesive aesthetic.** Yes.
 
 ## Where this skill is more opinionated

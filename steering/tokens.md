@@ -298,6 +298,6 @@ Keep the layers spaced at 10 so there's room to insert without renumbering.
 The tokens defined here are inlined as CSS custom properties at the top of `docs/preview.html`. To use them in other token tooling:
 
 - **Style Dictionary / DTCG token format** — translate the names in this document directly into a JSON file using `$value` and `$type`. The category names (`color`, `font-family`, `space`, etc.) match DTCG conventions.
-- **Tailwind preset** — see `references/retrofit.md` for a worked example that extends (not replaces) the Tailwind default theme.
+- **Tailwind preset** — see `steering/retrofit.md` for a worked example that extends (not replaces) the Tailwind default theme.
 
 When extending the system, add tokens *here first* with rationale, then propagate to other formats. Keep the naming consistent.

@@ -19,7 +19,7 @@ It is **not** Anthropic's general advice for "good frontend." That's a separate 
 
 This skill agrees with the cookbook's methodology (avoid converging defaults; address each design dimension explicitly; commit to an aesthetic) but takes a strong opinion on *which* aesthetic. The cookbook's example SaaS page chooses atmospheric gradients, pill CTAs, and a Syne/DM Sans display pairing; this skill chooses solid cream, inline-link CTAs, and Styrene/Tiempos. Both are legitimate. **Pick this skill when you want the editorial register specifically, the cookbook's general prompt when you want variety.**
 
-For a longer treatment of this distinction — including how to use parts of the skill in isolation — see `references/aesthetics-prompt.md`.
+For a longer treatment of this distinction — including how to use parts of the skill in isolation — see `steering/aesthetics-prompt.md`.
 
 ## What "looking like Claude" actually means
 
@@ -59,16 +59,16 @@ The ten points are listed in the order that matters. If you start with point 9 a
 
 Figure out which of these the user is asking for, then jump to the right workflow.
 
-- **From zero** — they want a new page, component, or app styled this way. Read `references/intent.md` first, then go to "Workflow: building from scratch."
-- **Retrofit** — they have existing code and want it restyled. Skim `references/intent.md` for the copy/posture reframe, then read `references/retrofit.md`.
-- **Tokens only** — they want the palette, type scale, or design tokens. Point them at `references/tokens.md` (full reference) and `docs/preview.html` (copy-paste-ready `:root` block).
-- **One component** — read `references/components.md`, lift the relevant pattern, adapt to their framework. Check the corresponding posture note in `references/intent.md` before shipping (e.g., for buttons: what does this button *say* it does?).
+- **From zero** — they want a new page, component, or app styled this way. Read `steering/intent.md` first, then go to "Workflow: building from scratch."
+- **Retrofit** — they have existing code and want it restyled. Skim `steering/intent.md` for the copy/posture reframe, then read `steering/retrofit.md`.
+- **Tokens only** — they want the palette, type scale, or design tokens. Point them at `steering/tokens.md` (full reference) and `docs/preview.html` (copy-paste-ready `:root` block).
+- **One component** — read `steering/components.md`, lift the relevant pattern, adapt to their framework. Check the corresponding posture note in `steering/intent.md` before shipping (e.g., for buttons: what does this button *say* it does?).
 
 If it's ambiguous, ask once: "Are we restyling visuals, or do you want me to also rework the copy and the interaction posture to match?" Then proceed.
 
 ## Quick token reference
 
-The full reference with rationale, do/don'ts, and edge cases lives in `references/tokens.md`. This is the at-a-glance version.
+The full reference with rationale, do/don'ts, and edge cases lives in `steering/tokens.md`. This is the at-a-glance version.
 
 ### Colors
 
@@ -111,7 +111,7 @@ font-family: "Styrene A", "Styrene B", "Poppins", "Helvetica Neue", Arial, sans-
 font-family: "Tiempos Text", "Tiempos", "Lora", Georgia, "Times New Roman", serif;
 ```
 
-Type scale (modular, ratio ~1.25 — see `references/tokens.md` for full rationale):
+Type scale (modular, ratio ~1.25 — see `steering/tokens.md` for full rationale):
 
 ```
 Display   3.5rem  / 1.05 / -0.02em   weight 600   (hero only)
@@ -159,29 +159,29 @@ When the user asks for a new page, component, or app:
 
 1. **Decide what the page is.** Not "a landing page." A *what* — an essay, a workspace, a settings panel, a single-purpose tool. The format determines the layout, not the other way around. A page that's actually one paragraph long should be one paragraph long.
 
-2. **Write the most important sentence first, in plain language.** The hero headline. The empty-state copy. The CTA. Get them honest before designing around them. If the sentence reads like a marketing brief, the layout will too. See `references/intent.md` for the voice register.
+2. **Write the most important sentence first, in plain language.** The hero headline. The empty-state copy. The CTA. Get them honest before designing around them. If the sentence reads like a marketing brief, the layout will too. See `steering/intent.md` for the voice register.
 
-3. **Drop in tokens.** Copy the `:root` block from `docs/preview.html` — every variable is defined inline there. For a Tailwind project, see the preset shown in `references/retrofit.md`.
+3. **Drop in tokens.** Copy the `:root` block from `docs/preview.html` — every variable is defined inline there. For a Tailwind project, see the preset shown in `steering/retrofit.md`.
 
-4. **Set up the font stack.** Add `<link>` tags for Poppins and Lora from Google Fonts as the no-license fallback. If the user has Styrene/Tiempos licenses, add `@font-face` blocks pointing at their licensed files; the font-family stacks in `references/tokens.md` already prefer Styrene/Tiempos first.
+4. **Set up the font stack.** Add `<link>` tags for Poppins and Lora from Google Fonts as the no-license fallback. If the user has Styrene/Tiempos licenses, add `@font-face` blocks pointing at their licensed files; the font-family stacks in `steering/tokens.md` already prefer Styrene/Tiempos first.
 
 5. **Lay out with whitespace, not boxes.** Resist wrapping everything in cards. Most sections on anthropic.com are text on cream with generous padding. Cards appear when there's a real reason to group.
 
 6. **Pick one accent per area, cycle across layout.** Hero uses terra cotta. Next section uses olive. Next uses blue. Don't mix within a single component.
 
-7. **Add motion last.** First paint: stagger fade-and-rise on top-level groups. Hover: subtle background shift or 1–2px translate. Never use motion as ambient texture. See `references/motion.md`.
+7. **Add motion last.** First paint: stagger fade-and-rise on top-level groups. Hover: subtle background shift or 1–2px translate. Never use motion as ambient texture. See `steering/motion.md`.
 
-8. **Write the microcopy with the same care as the layout.** Buttons. Empty states. Toasts. Errors. Loading messages. Disclaimers. Walk through every label once and check it against the table in `references/intent.md`.
+8. **Write the microcopy with the same care as the layout.** Buttons. Empty states. Toasts. Errors. Loading messages. Disclaimers. Walk through every label once and check it against the table in `steering/intent.md`.
 
 9. **Reference the specimen.** `docs/preview.html` is a single-frame poster that renders every primitive in the system at once — every token defined inline, every component shown. It is the *shape of correct* you're matching.
 
-10. **Run the posture checklist** at the bottom of `references/intent.md` before declaring done.
+10. **Run the posture checklist** at the bottom of `steering/intent.md` before declaring done.
 
 ## Workflow: restyling existing code
 
 The user has a project (often default Tailwind, default shadcn, default MUI) and wants it to look Anthropic. Don't redesign — *retune*.
 
-The full procedure with examples is in `references/retrofit.md`. The short version:
+The full procedure with examples is in `steering/retrofit.md`. The short version:
 
 1. **Audit the copy first, not the colors.** Headlines, CTAs, empty states, error messages, loading text. List every emoji, every exclamation point, every "Awesome!" and "Oops!". Most of them should leave. The retrofit is mostly invisible if you stop at colors.
 2. **Audit the palette.** Map current colors to ours: `bg-white` → cream surface, primary blue/purple → terra cotta, gray text → our text/text-muted scale.
@@ -195,7 +195,7 @@ The full procedure with examples is in `references/retrofit.md`. The short versi
 
 ## Avoid these defaults
 
-These are the failure modes that make a result feel "generated" instead of designed. Full list with replacements in `references/anti-patterns.md`.
+These are the failure modes that make a result feel "generated" instead of designed. Full list with replacements in `steering/anti-patterns.md`.
 
 **Visual:**
 - **Pure white backgrounds.** Use `#faf9f5`.
@@ -222,7 +222,7 @@ These are the failure modes that make a result feel "generated" instead of desig
 
 ```
 SKILL.md                    you are here — principles, quick reference, workflows
-references/
+steering/
   observations.md           field notes from anthropic.com — what's actually there
   aesthetics-prompt.md      how this skill relates to Anthropic's general frontend-aesthetics cookbook
   intent.md                 posture, voice, naming, friction (read this first for non-trivial work)

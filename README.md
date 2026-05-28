@@ -18,7 +18,7 @@ The visual style is the easy half. The posture — how the product treats the pe
 
 ```
 SKILL.md                    Principles, quick-reference, and workflows
-references/
+steering/
   observations.md           Field notes from anthropic.com — what's actually there
   aesthetics-prompt.md      How this skill relates to Anthropic's frontend-aesthetics cookbook
   intent.md                 Posture, voice, naming, friction — the heart of the skill
@@ -34,13 +34,13 @@ evals/
   evals.json                Test prompts for verifying skill behavior
 ```
 
-The skill is *documentation-first*. Token values, the type stack, and the Tailwind preset are all written into `references/tokens.md`. The single-frame specimen at `docs/preview.html` is the worked example — a copy-paste-ready HTML page with every token defined inline, every primitive rendered, and no external dependencies beyond Google Fonts.
+The skill is *documentation-first*. Token values, the type stack, and the Tailwind preset are all written into `steering/tokens.md`. The single-frame specimen at `docs/preview.html` is the worked example — a copy-paste-ready HTML page with every token defined inline, every primitive rendered, and no external dependencies beyond Google Fonts.
 
 ## What this is, and what it isn't
 
 This skill is **one specific theme constraint** — the *Anthropic-editorial* register. It is not Anthropic's general advice for "good frontend." Anthropic publishes a separate [cookbook on prompting for frontend aesthetics](https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb) that advocates *variety* across projects with the only constant being the rejection of AI-slop defaults.
 
-Use this skill when you want the editorial register specifically (research products, writing tools, professional knowledge work, marketing for any of those). Use the cookbook's general prompt when you want variety, or when the project genuinely calls for atmospheric backgrounds and playful personality. Both are valid. See `references/aesthetics-prompt.md` for the longer comparison.
+Use this skill when you want the editorial register specifically (research products, writing tools, professional knowledge work, marketing for any of those). Use the cookbook's general prompt when you want variety, or when the project genuinely calls for atmospheric backgrounds and playful personality. Both are valid. See `steering/aesthetics-prompt.md` for the longer comparison.
 
 ## Quick start
 
@@ -50,9 +50,9 @@ Place this folder where your Claude environment loads skills (or invoke with the
 
 ### Use the tokens directly
 
-The full palette, type stack, spacing scale, and motion tokens are documented in [`references/tokens.md`](./references/tokens.md), with rationale alongside each value. To use them in a project, copy the `:root` block from the bottom of [`docs/preview.html`](./docs/preview.html) — every variable is defined inline there with no build step.
+The full palette, type stack, spacing scale, and motion tokens are documented in [`steering/tokens.md`](./steering/tokens.md), with rationale alongside each value. To use them in a project, copy the `:root` block from the bottom of [`docs/preview.html`](./docs/preview.html) — every variable is defined inline there with no build step.
 
-For Tailwind users, [`references/retrofit.md`](./references/retrofit.md) shows a minimal preset that extends (not replaces) the default theme. For Style Dictionary or other DTCG token tooling, the names and values in `references/tokens.md` translate directly.
+For Tailwind users, [`steering/retrofit.md`](./steering/retrofit.md) shows a minimal preset that extends (not replaces) the default theme. For Style Dictionary or other DTCG token tooling, the names and values in `steering/tokens.md` translate directly.
 
 ### See it in action
 
@@ -83,7 +83,7 @@ If you remember nothing else — in the order that matters:
 
 Skipping any of points 1–4 produces a page that looks Anthropic-adjacent and behaves nothing like it. Skipping points 5–10 produces a page that behaves right but reads as generic. Both halves have to be there.
 
-Full rationale lives in `SKILL.md`, `references/intent.md`, and `references/tokens.md`.
+Full rationale lives in `SKILL.md`, `steering/intent.md`, and `steering/tokens.md`.
 
 ## Contributing
 
